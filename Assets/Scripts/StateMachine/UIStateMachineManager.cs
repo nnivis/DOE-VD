@@ -8,6 +8,7 @@ public class UIStateMachineManager : MonoBehaviour
     [SerializeField] private GameObject _startGameUIObject;
     [SerializeField] private GameObject _settingUIObject;
     [SerializeField] private GameObject _mainMenuUIObject;
+    [SerializeField] private GameObject _diceMenuObject;
     [SerializeField] private GameObject _levelgUIObject;
     [SerializeField] private GameObject _gameUIObject;
     [SerializeField] private GameObject _engGameUIObject;
@@ -21,6 +22,8 @@ public class UIStateMachineManager : MonoBehaviour
 
     public void StartUIManager()
     {
+        CloseAllUI();
+        
         SetState(UIStateType.StartGame);
     }
 
@@ -41,6 +44,8 @@ public class UIStateMachineManager : MonoBehaviour
                 return _settingUIObject;
             case UIStateType.MainMenu:
                 return _mainMenuUIObject;
+            case UIStateType.DiceMenu:
+                return _diceMenuObject;
             case UIStateType.Level:
                 return _levelgUIObject;
             case UIStateType.Game:
@@ -50,9 +55,20 @@ public class UIStateMachineManager : MonoBehaviour
             case UIStateType.WinGame:
                 return _winGameUIObject;
             default:
-                Debug.LogError("Unknown UI state type");
                 return null;
         }
+    }
+
+    public void CloseAllUI()
+    {
+        _startGameUIObject.SetActive(false);
+        _settingUIObject.SetActive(false);
+        _mainMenuUIObject.SetActive(false);
+        _diceMenuObject.SetActive(false);
+        _levelgUIObject.SetActive(false);
+        _gameUIObject.SetActive(false);
+        _engGameUIObject.SetActive(false);
+        _winGameUIObject.SetActive(false);
     }
     private IUIState CreateUIState(UIStateType stateType)
     {
@@ -73,6 +89,12 @@ public class UIStateMachineManager : MonoBehaviour
     {
         SetState(UIStateType.MainMenu);
     }
+
+    public void DiceMenu()
+    {
+        SetState(UIStateType.DiceMenu);
+    }
+
 
     public void Level()
     {

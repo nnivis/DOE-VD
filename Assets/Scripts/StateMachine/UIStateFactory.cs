@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class UIStateFactory : IUIStateFactory
 {
     public IUIState Create(UIStateType stateType)
@@ -12,6 +10,8 @@ public class UIStateFactory : IUIStateFactory
                 return new Setting();
             case UIStateType.MainMenu:
                 return new MainMenu();
+            case UIStateType.DiceMenu:
+                return new DiceMenu();
             case UIStateType.Level:
                 return new Level();
             case UIStateType.Game:
@@ -21,7 +21,6 @@ public class UIStateFactory : IUIStateFactory
             case UIStateType.WinGame:
                 return new WinGame();
             default:
-                Debug.LogError("Unknown UI state type");
                 return null;
         }
     }

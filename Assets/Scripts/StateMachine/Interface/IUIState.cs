@@ -12,6 +12,7 @@ public enum UIStateType
     StartGame,
     Setting,
     MainMenu,
+    DiceMenu,
     Level,
     Game,
     EndGame,
