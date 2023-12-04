@@ -2,12 +2,19 @@ using UnityEngine;
 
 public class StartGame : IUIState
 {
-    private GameObject _uiObject;
+    private GameObject _uiStateObject;
 
     public void Enter(GameObject uiObject)
     {
-        _uiObject = uiObject;
-        _uiObject.SetActive(true);
+        _uiStateObject = uiObject;
+        _uiStateObject.SetActive(true);
+
+
+        UIStartGameState _uistartGameState = _uiStateObject.GetComponent<UIStartGameState>();
+
+        _uistartGameState.Setup();
+        _uistartGameState.StartAnimation();
+
     }
 
     public void Update()
@@ -17,6 +24,6 @@ public class StartGame : IUIState
 
     public void Exit()
     {
-        _uiObject.SetActive(false);
+        _uiStateObject.SetActive(false);
     }
 }

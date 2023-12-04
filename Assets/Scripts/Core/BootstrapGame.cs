@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class BootstrapGame : MonoBehaviour
 {
-    [SerializeField] private UIStateMachineManager _uiManager;
+    [SerializeField] private UIStateMachineManager _stateMachine;
 
-    private void Start()
+    private void Awake()
     {
-        InitializeUIManager();
+        InitializStateMachine();
     }
 
-    private void InitializeUIManager()
+    private void InitializStateMachine()
     {
-        _uiManager.SetupUIManager();
-        _uiManager.StartUIManager();
+        _stateMachine.SetupStateMachine();
+        _stateMachine.StartStateMachine();
     }
 
 }

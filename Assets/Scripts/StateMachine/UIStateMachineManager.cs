@@ -14,13 +14,13 @@ public class UIStateMachineManager : MonoBehaviour
     [SerializeField] private GameObject _engGameUIObject;
     [SerializeField] private GameObject _winGameUIObject;
 
-    public void SetupUIManager()
+    public void SetupStateMachine()
     {
         _stateMachine = new UIStateMachine();
         _stateFactory = new UIStateFactory();
     }
 
-    public void StartUIManager()
+    public void StartStateMachine()
     {
         CloseAllUI();
         
