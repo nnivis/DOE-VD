@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class DownUpScaleTweenAnimationStrategy : IUIAnimationStrategy
 {
+    private const float _scaleAmount = 1.1f;
+    private const float _originalScale = 1.0f;
+
     public void AnimateIn(RectTransform rectTransform, float duration, float yOffset, Ease easeType)
     {
         DOTween.Kill(rectTransform);
@@ -22,36 +25,34 @@ public class DownUpScaleTweenAnimationStrategy : IUIAnimationStrategy
 
     private void OnMoveDownComplete(RectTransform rectTransform, float duration)
     {
-        float scaleAmount = 1.2f;
+        float _scaleAmount = 1.2f;
 
-        rectTransform.DOScale(scaleAmount, duration / 2).SetEase(Ease.InOutQuad)
+        rectTransform.DOScale(_scaleAmount, duration / 2).SetEase(Ease.InOutQuad)
             .OnComplete(() => OnScaleComplete(rectTransform, duration));
     }
 
     private void OnScaleComplete(RectTransform rectTransform, float duration)
     {
 
-        float originalScale = 1f;
+        float _originalScale = 1f;
 
-        rectTransform.DOScale(originalScale, duration / 2).SetEase(Ease.InOutQuad)
+        rectTransform.DOScale(_originalScale, duration / 2).SetEase(Ease.InOutQuad)
             .OnComplete(() => OnOriginalScaleComplete(rectTransform, duration));
     }
 
     private void OnOriginalScaleComplete(RectTransform rectTransform, float duration)
     {
-        // Здесь вы можете добавить логику для следующей анимации, например, следующего увеличения
-        float nextScaleAmount = 1.2f;
+        float _scaleAmount = 1.2f;
 
-        rectTransform.DOScale(nextScaleAmount, duration / 2).SetEase(Ease.InOutQuad)
+        rectTransform.DOScale(_scaleAmount, duration / 2).SetEase(Ease.InOutQuad)
             .OnComplete(() => OnNextScaleComplete(rectTransform, duration));
     }
 
     private void OnNextScaleComplete(RectTransform rectTransform, float duration)
     {
-        // И так далее, можете добавить еще анимаций по необходимости
-        float originalScale = 1f;
+        float _originalScale = 1f;
 
-        rectTransform.DOScale(originalScale, duration / 2).SetEase(Ease.InOutQuad)
-            .SetLoops(-1, LoopType.Yoyo); // Здесь устанавливаем зацикленность с эффектом "Yoyo"
+        rectTransform.DOScale(_originalScale, duration / 2).SetEase(Ease.InOutQuad)
+            .SetLoops(-1, LoopType.Yoyo); 
     }
 }

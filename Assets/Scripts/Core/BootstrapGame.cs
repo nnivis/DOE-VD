@@ -1,18 +1,22 @@
 using UnityEngine;
 
-public class BootstrapGame : MonoBehaviour
+namespace VD
 {
-    [SerializeField] private UIStateMachineManager _stateMachine;
-
-    private void Awake()
+    public class BootstrapGame : MonoBehaviour
     {
-        InitializStateMachine();
-    }
 
-    private void InitializStateMachine()
-    {
-        _stateMachine.SetupStateMachine();
-        _stateMachine.StartStateMachine();
-    }
+        [SerializeField] private UIStateMachineManager _stateMachine;
 
+        private void Awake()
+        {
+            //InitializStateMachine();
+        }
+
+        private void InitializStateMachine()
+        {
+            _stateMachine.SetupStateMachine();
+            _stateMachine.StartStateMachine();
+        }
+
+    }
 }

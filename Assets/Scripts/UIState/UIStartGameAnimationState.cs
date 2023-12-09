@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class UIStartGameState : MonoBehaviour
+public class UIStartGameAnimationState : MonoBehaviour
 {
     [SerializeField] private RectTransform _logoRectTransform;
     [SerializeField] private RectTransform _buttonRectTransform;
@@ -28,11 +28,11 @@ public class UIStartGameState : MonoBehaviour
 
     public void StopAnimation()
     {
-        //_uiAnimationHandler.SetAnimationStrategy(new UpTweenAnimationStrategy());
-        //_uiAnimationHandler.AnimateOut(_logoRectTransform, _duration, _yOffset, _easeType);
+        _uiAnimationHandler.SetAnimationStrategy(new DownUpTweenAnimationStrategy());
+        _uiAnimationHandler.AnimateOut(_logoRectTransform, _duration, _yOffsetLogo, _easeType);
 
-        //_uiAnimationHandler.SetAnimationStrategy(new DownTweenAnimationStrategy());
-        //_uiAnimationHandler.AnimateOut(_logoRectTransform, _duration, _yOffset, _easeType);
+        _uiAnimationHandler.SetAnimationStrategy(new DownUpTweenAnimationStrategy());
+        _uiAnimationHandler.AnimateOut(_buttonRectTransform, _duration, _yOffsetButton, _easeType);
     }
 
 }

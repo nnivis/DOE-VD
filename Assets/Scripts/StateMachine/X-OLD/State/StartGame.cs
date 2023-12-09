@@ -1,17 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
 public class StartGame : IUIState
 {
     private GameObject _uiStateObject;
-
+    private const float _timeForDelay = 3.5f;
     public void Enter(GameObject uiObject)
     {
+
         _uiStateObject = uiObject;
         _uiStateObject.SetActive(true);
 
-
-        UIStartGameState _uistartGameState = _uiStateObject.GetComponent<UIStartGameState>();
-
+        UIStartGameAnimationState _uistartGameState = _uiStateObject.GetComponent<UIStartGameAnimationState>();
+        
         _uistartGameState.Setup();
         _uistartGameState.StartAnimation();
 
@@ -24,6 +25,12 @@ public class StartGame : IUIState
 
     public void Exit()
     {
+        UIStartGameAnimationState _uistartGameState = _uiStateObject.GetComponent<UIStartGameAnimationState>();
+
+        _uistartGameState.Setup();
+        _uistartGameState.StopAnimation();
+
         _uiStateObject.SetActive(false);
     }
+
 }
