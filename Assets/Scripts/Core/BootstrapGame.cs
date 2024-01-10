@@ -12,11 +12,5 @@ namespace VD
             //InitializStateMachine();
         }
 
-        private void InitializStateMachine()
-        {
-            _stateMachine.SetupStateMachine();
-            _stateMachine.StartStateMachine();
-        }
-
     }
 }

@@ -12,8 +12,5 @@ public class ImageScroller : MonoBehaviour
     [SerializeField, Range(-1, 1)] private float _yDirection = 1;
 
     private void Awake() => _image = GetComponent<RawImage>();
-
-
-    private void Update()
-        => _image.uvRect = new Rect(_image.uvRect.position + new Vector2(-_xDirection * _scrollSpeed, _yDirection * _scrollSpeed) * Time.deltaTime, _image.uvRect.size);
+    private void Update()=> _image.uvRect = new Rect(_image.uvRect.position + new Vector2(-_xDirection * _scrollSpeed, _yDirection * _scrollSpeed) * Time.deltaTime, _image.uvRect.size);
 }
