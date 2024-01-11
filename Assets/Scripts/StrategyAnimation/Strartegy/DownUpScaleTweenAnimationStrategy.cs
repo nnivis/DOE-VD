@@ -25,7 +25,6 @@ public class DownUpScaleTweenAnimationStrategy : IUIAnimationStrategy
 
     private void OnMoveDownComplete(RectTransform rectTransform, float duration)
     {
-        float _scaleAmount = 1.2f;
 
         rectTransform.DOScale(_scaleAmount, duration / 2).SetEase(Ease.InOutQuad)
             .OnComplete(() => OnScaleComplete(rectTransform, duration));
@@ -34,25 +33,19 @@ public class DownUpScaleTweenAnimationStrategy : IUIAnimationStrategy
     private void OnScaleComplete(RectTransform rectTransform, float duration)
     {
 
-        float _originalScale = 1f;
-
         rectTransform.DOScale(_originalScale, duration / 2).SetEase(Ease.InOutQuad)
             .OnComplete(() => OnOriginalScaleComplete(rectTransform, duration));
     }
 
     private void OnOriginalScaleComplete(RectTransform rectTransform, float duration)
     {
-        float _scaleAmount = 1.2f;
-
         rectTransform.DOScale(_scaleAmount, duration / 2).SetEase(Ease.InOutQuad)
             .OnComplete(() => OnNextScaleComplete(rectTransform, duration));
     }
 
     private void OnNextScaleComplete(RectTransform rectTransform, float duration)
     {
-        float _originalScale = 1f;
-
         rectTransform.DOScale(_originalScale, duration / 2).SetEase(Ease.InOutQuad)
-            .SetLoops(-1, LoopType.Yoyo); 
+            .SetLoops(-1, LoopType.Yoyo);
     }
 }

@@ -26,7 +26,7 @@ namespace VD
 
         private void Start()
         {
-            //_stateMachine.Change(_states[0].GetType());
+            _stateMachine.Change(_states[0].GetType());
         }
 
         private void InitGameState(StateMachineBehavior state)

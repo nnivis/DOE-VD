@@ -1,21 +1,26 @@
 
 namespace VD
 {
-    public class MainSceneMode : StateModeBehavior
-    {
-        public void GotoStartGame()
+	public class MainSceneMode : StateModeBehavior
+	{
+		public void GotoStartGame()
 		{
 			ChangeState<StartGameState>();
 		}
-		
-		public void GotoSettings()
+
+		public void GotoGame()
 		{
-			ChangeState<SettingsState>();
+			ChangeState<GameState>();
 		}
-		
-		public void GotoMainMenuScene()
+
+		public void GotoMainGameFight()
 		{
-			ChangeState<MainMenuState>();
+			ChangeState<GameFightState>();
 		}
-    }
+
+		public void GotoEndGame()
+		{
+			ChangeState<EndGameState>();
+		}
+	}
 }

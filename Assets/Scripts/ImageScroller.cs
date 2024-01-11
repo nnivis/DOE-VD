@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class ImageScroller : MonoBehaviour
 {
     private RawImage _image;
-
     [SerializeField, Range(0, 10)] private float _scrollSpeed = 0.1f;
 
     [SerializeField, Range(-1, 1)] private float _xDirection = 1;
