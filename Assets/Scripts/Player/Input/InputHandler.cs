@@ -6,6 +6,7 @@ namespace VD
     public class InputHandler : IDisposable
     {
         private IInput _input;
+        public Action<Vector3> ClickDown { get; internal set; }
 
         public InputHandler(IInput input)
         {
@@ -15,7 +16,7 @@ namespace VD
 
         private void OnClickDown(Vector3 vector)
         {
-            Debug.Log("ClickDown");
+            ClickDown?.Invoke(vector);
         }
 
         public void Dispose()
