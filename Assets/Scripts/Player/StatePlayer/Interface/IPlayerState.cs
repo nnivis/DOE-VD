@@ -7,9 +7,9 @@ namespace VD
     {
         void Enter();
         void Exit();
-        void Update();
-        void HandleClick(Vector3 position);
+        void HandleLeftClick(Vector3 position);
+        void HandleRightClick(Vector3 position);
         void HandleTriggerEnter(Collider other);
-          void HandleTriggerExit();
+        void HandleTriggerExit();
     }
 }

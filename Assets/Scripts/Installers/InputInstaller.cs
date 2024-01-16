@@ -2,7 +2,7 @@ using Zenject;
 
 namespace VD
 {
-    public class GameInstaller : MonoInstaller
+    public class InputInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {

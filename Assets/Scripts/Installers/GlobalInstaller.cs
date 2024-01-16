@@ -12,11 +12,7 @@ namespace VD
 
         private void BindInput()
         {
-            if (SystemInfo.deviceType == DeviceType.Handheld)
-                Container.BindInterfacesAndSelfTo<MobileInput>().AsSingle();
-            else
-                Container.BindInterfacesAndSelfTo<DesktopInput>().AsSingle();
-
+            Container.BindInterfacesAndSelfTo<DesktopInput>().AsSingle();
         }
     }
 }

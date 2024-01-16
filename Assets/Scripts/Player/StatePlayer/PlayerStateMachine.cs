@@ -10,13 +10,13 @@ namespace VD
         private IPlayerState _currentState;
         public IPlayerState CurrentState => _currentState;
 
-        public PlayerStateMachine(Player player, GameObject passivePrefab, GameObject activePrefab)
+        public PlayerStateMachine(GameObject passivePrefab, GameObject activePrefab)
         {
 
             _states = new List<IPlayerState>()
         {
-            new PassiveState(this, player, passivePrefab),
-            new ActivePlayerState(this, player, activePrefab),
+            new PassiveState(this, passivePrefab),
+            new ActivePlayerState(this, activePrefab),
 
         };
 

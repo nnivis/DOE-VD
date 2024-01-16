@@ -1,16 +1,13 @@
-using UnityEngine.UI;
 using UnityEngine;
 
 namespace VD
 {
     public class PassiveState : IPlayerState
     {
-        private readonly Player _player;
         private readonly GameObject _passivePrefab;
 
-        public PassiveState(PlayerStateMachine playerStateMachine, Player player, GameObject passivePrefab)
+        public PassiveState(PlayerStateMachine playerStateMachine, GameObject passivePrefab)
         {
-            _player = player;
             _passivePrefab = passivePrefab;
         }
 
@@ -24,7 +21,12 @@ namespace VD
             _passivePrefab.SetActive(false);
         }
 
-        public void HandleClick(Vector3 position)
+        public void HandleLeftClick(Vector3 position)
+        {
+            //Debug.Log("Passive state click");
+        }
+
+        public void HandleRightClick(Vector3 position)
         {
             //Debug.Log("Passive state click");
         }
@@ -37,11 +39,7 @@ namespace VD
 
         public void HandleTriggerExit()
         {
-            throw new System.NotImplementedException();
-        }
 
-        public void Update()
-        {
         }
 
     }

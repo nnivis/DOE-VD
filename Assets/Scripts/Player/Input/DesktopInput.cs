@@ -6,19 +6,30 @@ namespace VD
 {
     public class DesktopInput : IInput, ITickable
     {
-        public event Action<Vector3> ClickDown;
+        public event Action<Vector3> ClickLeftDown;
+        public event Action<Vector3> ClickRightDown;
         private const int LeftMouseButton = 0;
+        private const int RightMouseButton = 1;
 
         public void Tick()
         {
-            ProcessClickDown();
+            ProcessLeftClickDown();
+            ProcessRightClickDown();
         }
 
-        private void ProcessClickDown()
+        private void ProcessLeftClickDown()
         {
             if (Input.GetMouseButtonDown(LeftMouseButton))
             {
-                ClickDown?.Invoke(Input.mousePosition);
+                ClickLeftDown?.Invoke(Input.mousePosition);
+            }
+        }
+
+        private void ProcessRightClickDown()
+        {
+            if (Input.GetMouseButtonDown(RightMouseButton))
+            {
+                ClickRightDown?.Invoke(Input.mousePosition);
             }
         }
 
