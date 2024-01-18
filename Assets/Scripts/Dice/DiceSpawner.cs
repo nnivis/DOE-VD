@@ -8,15 +8,14 @@ namespace VD
     public class DiceSpawner : MonoBehaviour
     {
         [SerializeField] private float _spawnCooldown;
-
         [SerializeField] private List<Transform> _spawnPoints;
-
         [SerializeField] private DiceFactory _diceFactory;
         private Coroutine _spawn;
-        [SerializeField] private const int _minSpawnCount = 1;
-        [SerializeField] private const int _maxSpawnCount = 5;
+        [SerializeField] private int _minSpawnCount;
+        [SerializeField] private int _maxSpawnCount;
+        private int spawnedCount = 0;
 
-        void Start()
+        void Start() // 
         {
             StartWork();
         }
@@ -36,15 +35,17 @@ namespace VD
 
         private IEnumerator Spawn()
         {
-            while (true)
+            while (spawnedCount < _maxSpawnCount)
             {
                 int spawnCount = UnityEngine.Random.Range(_minSpawnCount, _maxSpawnCount + 1);
 
-                for (int i = 0; i < spawnCount; i++)
+                for (int i = 0; i < spawnCount && spawnedCount < _maxSpawnCount; i++)
                 {
                     Dice dice = _diceFactory.Get((DiceType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(DiceType)).Length));
-                    dice.transform.parent = transform;
+                    dice.transform.SetParent(transform, false);
                     dice.MoveTo(_spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Count)].position);
+
+                    spawnedCount++;
 
                     yield return new WaitForSeconds(_spawnCooldown);
                 }

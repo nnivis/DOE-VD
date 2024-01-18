@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace VD
@@ -31,6 +32,17 @@ namespace VD
 
             }
         }
+
+        public DiceType GetNextType(DiceType currentType)
+        {
+            Array values = Enum.GetValues(typeof(DiceType));
+
+            DiceType[] types = (DiceType[])values;
+            DiceType randomType = types[UnityEngine.Random.Range(0, types.Length)];
+
+            return randomType;
+        }
+
 
         DiceConfig IDiceConfigProvider.GetConfig(DiceType type)
         {
