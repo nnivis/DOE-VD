@@ -46,9 +46,8 @@ namespace VD
                     dice.MoveTo(_spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Count)].position);
 
                     spawnedCount++;
-
-                    yield return new WaitForSeconds(_spawnCooldown);
                 }
+                yield return new WaitForSeconds(_spawnCooldown);
             }
         }
     }

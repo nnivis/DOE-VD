@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace VD
 {
-    public class Enemy : MonoBehaviour
+    public class Character : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()

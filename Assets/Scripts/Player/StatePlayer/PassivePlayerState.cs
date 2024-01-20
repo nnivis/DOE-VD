@@ -21,26 +21,27 @@ namespace VD
             _passivePrefab.SetActive(false);
         }
 
-        public void HandleLeftClick(Vector3 position)
+
+
+        public void HandleLeftClick()
         {
-            //Debug.Log("Passive state click");
+            Debug.Log("Passive");
         }
 
-        public void HandleRightClick(Vector3 position)
-        {
-            //Debug.Log("Passive state click");
-        }
-        public void HandleTriggerEnter(Collider other)
-        {
 
-            //Debug.Log("Passive state trigger enter. Assigned _dice.");
-
+        public void HandleRightClick()
+        {
+            Debug.Log("Passive");
         }
 
-        public void HandleTriggerExit()
+        public void HandleTriggerEnter2D(Collider2D collider)
         {
 
         }
 
+        public void HandleTriggerExit2D()
+        {
+
+        }
     }
 }

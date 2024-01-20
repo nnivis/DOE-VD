@@ -22,37 +22,30 @@ namespace VD
             _activePrefab.SetActive(false);
         }
 
-        public void HandleLeftClick(Vector3 position)
+        public void HandleLeftClick()
         {
             if (_dice != null)
-            {
                 _dice.OnMassegeDiceLeftClick();
-            }
         }
 
-         public void HandleRightClick(Vector3 position)
+        public void HandleRightClick()
         {
             if (_dice != null)
-            {
                 _dice.OnMassegeDiceRightClick();
-            }
         }
 
-        public void HandleTriggerEnter(Collider other)
+        public void HandleTriggerEnter2D(Collider2D collider)
         {
-            Dice diceComponent = other.GetComponent<Dice>();
+            GameObject colliderObject = collider.gameObject;
+            Dice diceComponent = colliderObject.GetComponent<Dice>();
 
             if (diceComponent != null)
-            {
                 _dice = diceComponent;
-            }
-
         }
 
-        public void HandleTriggerExit()
+        public void HandleTriggerExit2D()
         {
             _dice = null;
         }
-
     }
 }
