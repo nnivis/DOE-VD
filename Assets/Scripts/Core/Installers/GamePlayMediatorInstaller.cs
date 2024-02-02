@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VD
 {
-    public class GameFightState : StateMachineBehavior
+    public class GamePlayMediatorInstaller : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()

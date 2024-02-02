@@ -42,10 +42,5 @@ namespace VD
             if (diceComponent != null)
                 _dice = diceComponent;
         }
-
-        public void HandleTriggerExit2D()
-        {
-            _dice = null;
-        }
     }
 }

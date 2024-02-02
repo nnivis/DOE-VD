@@ -1,19 +1,30 @@
 using UnityEngine;
+using Zenject;
 
 namespace VD
 {
     public class Character : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+
+        private int _maxHealth;
+        private int _health;
+        private int _damage;
+
+        public void Initialization(CharacterConfig characterConfig)
         {
-        
+            _health = _maxHealth = characterConfig.MaxHealth;
+            _damage = characterConfig.BaseDamage;
+            Debug.Log($"� ���� {_health} ��");
         }
 
-        // Update is called once per frame
-        void Update()
+        public void TakeDamage(int damage)
         {
-        
+            Debug.Log($"������� {damage} �����");
+        }
+
+        public void ChangeScale()
+        {
+            transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
         }
     }
 }

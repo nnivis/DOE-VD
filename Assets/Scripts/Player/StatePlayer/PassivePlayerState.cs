@@ -39,9 +39,5 @@ namespace VD
 
         }
 
-        public void HandleTriggerExit2D()
-        {
-
-        }
     }
 }

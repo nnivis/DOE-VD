@@ -10,7 +10,6 @@ namespace VD
         void HandleLeftClick();
         void HandleRightClick();
         void HandleTriggerEnter2D(Collider2D collider);
-        void HandleTriggerExit2D();
 
     }
 }

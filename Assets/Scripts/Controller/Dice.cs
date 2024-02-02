@@ -7,58 +7,85 @@ namespace VD
     public class Dice : MonoBehaviour
     {
         private Sprite _icon;
-        private int _value;
-        private DiceType _currentType;
+        private int _valueAbility;
+        private float _speed = 2.5f;
         private IDiceConfigProvider _configProvider;
+        private IDiceAbility _currentAbility;
+        private DiceType _currentType;
         private DiceMove _diceMove;
         private Rigidbody2D _rigidBody2D;
 
-        public void Initialize(IDiceConfigProvider configProvider, Sprite icon, int value, DiceType type)
+        public void Initialize(IDiceConfigProvider configProvider, Sprite icon, int valueAbility, DiceType type)
         {
             _configProvider = configProvider;
             _icon = icon;
-            _value = value;
+            _valueAbility = valueAbility;
             _currentType = type;
 
             SetIcon(icon);
 
             _rigidBody2D = GetComponent<Rigidbody2D>();
 
-            _diceMove = new DiceMove();
-            _diceMove.Initialize(_rigidBody2D);
-            _diceMove.AddStartingForce();
+            _diceMove = GetComponent<DiceMove>();
+            _diceMove.Initialization(_rigidBody2D, _speed);
         }
 
-        public void ChangeType()
+        void Start()
         {
-            _currentType = _configProvider.GetNextType(_currentType);
-            DiceConfig newConfig = _configProvider.GetConfig(_currentType);
-            UpdateConfig(newConfig);
-        }
-
-        public void UpdateConfig(DiceConfig config)
-        {
-            _icon = config.Icon;
-            _value = config.Value;
-            _currentType = config.Type;
-
-            SetIcon(_icon);
+           _diceMove.AddStartingForce();
         }
 
         public void OnMassegeDiceLeftClick()
         {
-            Debug.Log("LEFT");
+
+        }
+
+        public void ApplyCurrentAbility(GameObject target)
+        {
+            if (_currentAbility != null)
+            {
+                _currentAbility.ApplyAbility(target);
+            }
         }
 
         public void OnMassegeDiceRightClick()
         {
-            Debug.Log("RIGHT");
             ChangeType();
         }
 
-        public void MoveTo(Vector3 position) => transform.position = position;
-        public void SetIcon(Sprite sprite) => GetComponentInChildren<Image>().sprite = sprite;
+        public void ChangeType()
+        {
+            _currentType = _configProvider.GetRandomType(_currentType);
+            DiceConfig newConfig = _configProvider.GetConfig(_currentType);
+            UpdateConfig(newConfig);
+
+            switch (_currentType)
+            {
+                case DiceType.AttackEnemy:
+                    _currentAbility = new AttackEnemyAbility();
+                    break;
+                case DiceType.AttackPlayer:
+                    _currentAbility = new AttackPlayerAbility();
+                    break;
+                case DiceType.Health:
+                    _currentAbility = new HealthAbility();
+                    break;
+                default:
+                    _currentAbility = null;
+                    break;
+            }
+        }
+        public void UpdateConfig(DiceConfig config)
+        {
+            _icon = config.Icon;
+            _valueAbility = config.Value;
+            _currentType = config.Type;
+
+            SetIcon(_icon);
+        }
         public void FixedUpdate() => _diceMove.UpdateMovement();
+        public void SetIcon(Sprite sprite) => GetComponentInChildren<Image>().sprite = sprite;
+        public void MoveTo(Vector3 position) => transform.position = position;
 
     }
 

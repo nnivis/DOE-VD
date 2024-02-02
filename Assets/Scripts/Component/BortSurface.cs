@@ -22,11 +22,11 @@ namespace VD
                 switch (forceType)
                 {
                     case ForceType.Additive:
-                        dice.currentSpeed += bounceStrength;
+                        dice._currentSpeed += bounceStrength;
                         break;
 
                     case ForceType.Multiplicative:
-                        dice.currentSpeed *= bounceStrength;
+                        dice._currentSpeed *= bounceStrength;
                         break;
                 }
             }

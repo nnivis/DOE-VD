@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -65,9 +66,5 @@ namespace VD
             _stateMachine.CurrentState.HandleTriggerEnter2D(other);
         }
 
-        private void OnTriggerExit2D()
-        {
-            _stateMachine.CurrentState.HandleTriggerExit2D();
-        }
     }
 }

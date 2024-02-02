@@ -15,15 +15,12 @@ namespace VD
         [SerializeField] private int _maxSpawnCount;
         private int spawnedCount = 0;
 
-        void Start() // 
-        {
-            StartWork();
-        }
+
 
         public void StartWork()
         {
+            gameObject.SetActive(true);
             StopWork();
-
             _spawn = StartCoroutine(Spawn());
         }
 
@@ -41,9 +38,11 @@ namespace VD
 
                 for (int i = 0; i < spawnCount && spawnedCount < _maxSpawnCount; i++)
                 {
+                    Transform selectedSpawnPoint = _spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Count)];
                     Dice dice = _diceFactory.Get((DiceType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(DiceType)).Length));
-                    dice.transform.SetParent(transform, false);
-                    dice.MoveTo(_spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Count)].position);
+                    dice.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                    dice.transform.SetParent(selectedSpawnPoint, false);
+                    dice.MoveTo(selectedSpawnPoint.position);
 
                     spawnedCount++;
                 }
