@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 namespace VD
 {
@@ -6,16 +7,28 @@ namespace VD
     {
         [SerializeField] private DiceSpawner _diceSpawner;
         [SerializeField] private CharacterSpawner _characterSpawner;
+        [SerializeField] private EnemySpawner _enemySpawner;
+        private AbilityMediator _abilityMediator;
+        private Character _character;
+        private Enemy _enemy;
+
+        [Inject]
+        private void Construct(AbilityMediator abilityMediator)
+        {
+            _abilityMediator = abilityMediator;
+        }
 
         public void StartGame()
         {
-            SpawnComponent();
+            Spawn();
+            _abilityMediator.SetComponent(_character, _enemy);
         }
 
-        private void SpawnComponent()
+        private void Spawn()
         {
-            _diceSpawner.StartWork();
-            _characterSpawner.StartWork();
+            _diceSpawner.StartWork(_abilityMediator);
+            _character = _characterSpawner.SpawnCharacter();
+            _enemy = _enemySpawner.Spawn();
         }
     }
 }

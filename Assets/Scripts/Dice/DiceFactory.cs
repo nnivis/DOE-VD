@@ -1,14 +1,15 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 namespace VD
 {
     [CreateAssetMenu(fileName = "DiceFactory", menuName = "Factory/DiceFactory")]
     public class DiceFactory : ScriptableObject, IDiceConfigProvider
     {
-        private const string SmallConfig = "SmallConfig";
         [SerializeField] private DiceConfig _attackPlayer, _attackEnemy, _health;
+        private DiContainer _container;
 
         public Dice Get(DiceType type)
         {

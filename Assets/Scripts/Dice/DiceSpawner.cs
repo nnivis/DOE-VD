@@ -10,16 +10,17 @@ namespace VD
         [SerializeField] private float _spawnCooldown;
         [SerializeField] private List<Transform> _spawnPoints;
         [SerializeField] private DiceFactory _diceFactory;
-        private Coroutine _spawn;
         [SerializeField] private int _minSpawnCount;
         [SerializeField] private int _maxSpawnCount;
+        private AbilityMediator _abilityMediator;
+        private Coroutine _spawn;
         private int spawnedCount = 0;
+        private const float BaseScale = 0.3f;
 
-
-
-        public void StartWork()
+        public void StartWork(AbilityMediator abilityMediator)
         {
-            gameObject.SetActive(true);
+            _abilityMediator = abilityMediator;
+
             StopWork();
             _spawn = StartCoroutine(Spawn());
         }
@@ -40,7 +41,8 @@ namespace VD
                 {
                     Transform selectedSpawnPoint = _spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Count)];
                     Dice dice = _diceFactory.Get((DiceType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(DiceType)).Length));
-                    dice.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+                    dice.SetAbilityMediator(_abilityMediator);
+                    dice.transform.localScale = new Vector3(BaseScale, BaseScale, BaseScale);
                     dice.transform.SetParent(selectedSpawnPoint, false);
                     dice.MoveTo(selectedSpawnPoint.position);
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace VD
 {
@@ -7,13 +8,13 @@ namespace VD
     public class Dice : MonoBehaviour
     {
         private Sprite _icon;
+        private Rigidbody2D _rigidBody2D;
         private int _valueAbility;
         private float _speed = 2.5f;
-        private IDiceConfigProvider _configProvider;
-        private IDiceAbility _currentAbility;
         private DiceType _currentType;
         private DiceMove _diceMove;
-        private Rigidbody2D _rigidBody2D;
+        private IDiceConfigProvider _configProvider;
+        private AbilityMediator _abilityMediator;
 
         public void Initialize(IDiceConfigProvider configProvider, Sprite icon, int valueAbility, DiceType type)
         {
@@ -30,22 +31,20 @@ namespace VD
             _diceMove.Initialization(_rigidBody2D, _speed);
         }
 
+        public void SetAbilityMediator(AbilityMediator abilityMediator)
+        {
+            _abilityMediator = abilityMediator;
+        }
+
         void Start()
         {
-           _diceMove.AddStartingForce();
+            _diceMove.AddStartingForce();
         }
 
         public void OnMassegeDiceLeftClick()
         {
-
-        }
-
-        public void ApplyCurrentAbility(GameObject target)
-        {
-            if (_currentAbility != null)
-            {
-                _currentAbility.ApplyAbility(target);
-            }
+            Debug.Log("Left Click");
+            _abilityMediator.HandleDiceAbility(_currentType, _valueAbility);
         }
 
         public void OnMassegeDiceRightClick()
@@ -59,21 +58,6 @@ namespace VD
             DiceConfig newConfig = _configProvider.GetConfig(_currentType);
             UpdateConfig(newConfig);
 
-            switch (_currentType)
-            {
-                case DiceType.AttackEnemy:
-                    _currentAbility = new AttackEnemyAbility();
-                    break;
-                case DiceType.AttackPlayer:
-                    _currentAbility = new AttackPlayerAbility();
-                    break;
-                case DiceType.Health:
-                    _currentAbility = new HealthAbility();
-                    break;
-                default:
-                    _currentAbility = null;
-                    break;
-            }
         }
         public void UpdateConfig(DiceConfig config)
         {

@@ -8,17 +8,16 @@ namespace VD
         [SerializeField] private CharacterConfig _config;
         [SerializeField] private Character _prefab;
         [SerializeField] private Transform _spawnPoint;
+         private const float  BaseScale = 3.0f;
 
-        public void StartWork()
-        {
-            SpawnCharacter();
-        }
-        private void SpawnCharacter()
+        public  Character SpawnCharacter()
         {
             Character character = Instantiate(_prefab, _spawnPoint.position, Quaternion.identity);
             character.Initialization(_config);
             character.transform.SetParent(_spawnPoint);
-            character.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
+            character.transform.localScale = new Vector3(BaseScale, BaseScale, BaseScale);
+
+            return character;
         }
 
 

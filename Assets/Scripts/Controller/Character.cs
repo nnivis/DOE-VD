@@ -3,7 +3,7 @@ using Zenject;
 
 namespace VD
 {
-    public class Character : MonoBehaviour
+    public class Character : MonoBehaviour, IDamageable
     {
 
         private int _maxHealth;
@@ -25,6 +25,16 @@ namespace VD
         public void ChangeScale()
         {
             transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
+        }
+
+        public void ApplyDamage(int damage)
+        {
+            Debug.Log("Character Damage");
+        }
+
+        public void ApplyHealing(int amount)
+        {
+            Debug.Log("Character Health");
         }
     }
 }
