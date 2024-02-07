@@ -22,6 +22,14 @@ namespace VD
         {
             Spawn();
             _abilityMediator.SetComponent(_character, _enemy);
+            _character.onDead += CharacterDeath;
+            _enemy.onDead += EnemyDeath;
+        }
+
+        private void OnDisable()
+        {
+            _character.onDead -= CharacterDeath;
+            _enemy.onDead -= EnemyDeath;
         }
 
         private void Spawn()
@@ -29,6 +37,15 @@ namespace VD
             _diceSpawner.StartWork(_abilityMediator);
             _character = _characterSpawner.SpawnCharacter();
             _enemy = _enemySpawner.Spawn();
+        }
+
+        private void CharacterDeath()
+        {
+
+        }
+        private void EnemyDeath()
+        {
+
         }
     }
 }

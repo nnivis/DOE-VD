@@ -28,7 +28,7 @@ namespace VD
             Enemy enemy = _enemyFactory.Get((EnemyType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(EnemyType)).Length));
             enemy.transform.SetParent(_spawnPoint);
             enemy.transform.localScale = new Vector3(BaseScale, BaseScale, BaseScale);
-            enemy.MoveTo(_spawnPoint.position);
+            enemy.transform.position = _spawnPoint.position;
 
             return enemy;
         }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -5,31 +6,30 @@ namespace VD
 {
     public class Character : MonoBehaviour, IDamageable
     {
+        public Action onDead;
+        public Action onDamage;
+        private HealthComponent _healthComponent;
+        [SerializeField] private ViewComponent _viewComponent;
 
-        private int _maxHealth;
-        private int _health;
-        private int _damage;
-
-        public void Initialization(CharacterConfig characterConfig)
+        public void Initialization(CharacterConfig config)
         {
-            _health = _maxHealth = characterConfig.MaxHealth;
-            _damage = characterConfig.BaseDamage;
-            Debug.Log($"� ���� {_health} ��");
+            _healthComponent = new HealthComponent(config.MaxHealth);
         }
-
-        public void TakeDamage(int damage)
-        {
-            Debug.Log($"������� {damage} �����");
-        }
-
-        public void ChangeScale()
-        {
-            transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
-        }
-
+        public int CurrentHealth => _healthComponent.currentHealth;
+        public int MaxHealth => _healthComponent.maxHealth;
         public void ApplyDamage(int damage)
         {
-            Debug.Log("Character Damage");
+            _healthComponent.ReduceHealth(damage);
+            _viewComponent.UpdateHealth(CurrentHealth, MaxHealth);
+            onDamage?.Invoke();
+
+            if (_healthComponent.isDead) Death();
+        }
+
+        private void Death()
+        {
+            onDead?.Invoke();
+            Destroy(gameObject);
         }
 
         public void ApplyHealing(int amount)

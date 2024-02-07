@@ -24,7 +24,7 @@ namespace VD
         {
             EnemyConfig config = GetConfig(enemyType);
             Enemy instance = _container.InstantiatePrefabForComponent<Enemy>(config.Prefab);
-            instance.Initialize(config.Health, config.Damage);
+            instance.Initialize(config);
             return instance;
         }
 

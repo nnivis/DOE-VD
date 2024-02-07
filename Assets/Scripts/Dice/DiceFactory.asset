@@ -15,12 +15,12 @@ MonoBehaviour:
   _attackPlayer:
     _prefab: {fileID: 4151209465868562113, guid: aa2373862a6bf5f4a89f413d63c7fabb, type: 3}
     _icon: {fileID: 21300000, guid: 4a93a8e793e9d494596c5af4891f9f38, type: 3}
-    _value: 1
+    _value: 35
     _type: 0
   _attackEnemy:
     _prefab: {fileID: 4151209465868562113, guid: aa2373862a6bf5f4a89f413d63c7fabb, type: 3}
     _icon: {fileID: 21300000, guid: e36a4c00213784a4eaf23c07577b5774, type: 3}
-    _value: 1
+    _value: 25
     _type: 1
   _health:
     _prefab: {fileID: 4151209465868562113, guid: aa2373862a6bf5f4a89f413d63c7fabb, type: 3}

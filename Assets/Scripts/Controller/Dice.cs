@@ -43,7 +43,6 @@ namespace VD
 
         public void OnMassegeDiceLeftClick()
         {
-            Debug.Log("Left Click");
             _abilityMediator.HandleDiceAbility(_currentType, _valueAbility);
         }
 

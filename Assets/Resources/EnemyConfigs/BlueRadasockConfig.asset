@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: BlueRadasockConfig
   m_EditorClassIdentifier: 
   _prefab: {fileID: 6306669883798291654, guid: e9ff581b4aeef5d469c4adb12b9323c0, type: 3}
-  _health: 0
-  _damage: 0
+  _health: 100

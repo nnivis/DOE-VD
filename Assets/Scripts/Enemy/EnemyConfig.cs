@@ -7,10 +7,8 @@ namespace VD
     {
         [SerializeField] private Enemy _prefab;
         [SerializeField] private int _health;
-        [SerializeField] private int _damage;
 
         public Enemy Prefab => _prefab;
-        public int Health => _health;
-        public int Damage => _damage;
+        public int MaxHealth => _health;
     }
 }
