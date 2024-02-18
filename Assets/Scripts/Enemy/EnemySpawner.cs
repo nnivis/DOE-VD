@@ -9,23 +9,20 @@ namespace VD
     {
 
         [SerializeField] private Transform _spawnPoint;
-        private const float  BaseScale = 3.0f;
-
+        private const float BaseScale = 3.0f;
+        private GamePlayMediator _gamePlayMediator;
         private EnemyFactory _enemyFactory;
         [Inject]
-        private void Construct(EnemyFactory enemyFactory)
+        private void Construct(EnemyFactory enemyFactory, GamePlayMediator gamePlayMediator)
         {
             _enemyFactory = enemyFactory;
+            _gamePlayMediator = gamePlayMediator;
         }
 
-        public void StartWork()
-        {
-            Spawn();
-        }
-
-        public Enemy Spawn()
+        public Enemy SpawnEnemy()
         {
             Enemy enemy = _enemyFactory.Get((EnemyType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(EnemyType)).Length));
+            enemy.onDead += (GameOverType) => _gamePlayMediator.NotifyGameOver(enemy.GameOverType);
             enemy.transform.SetParent(_spawnPoint);
             enemy.transform.localScale = new Vector3(BaseScale, BaseScale, BaseScale);
             enemy.transform.position = _spawnPoint.position;

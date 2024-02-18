@@ -9,7 +9,6 @@ namespace VD
         public void UpdateHealth(int currentHealth, int maxHealth)
         {
             float healthPercentage = (float)currentHealth / maxHealth * 100f;
-            Debug.Log(healthPercentage);
             _healthImage.fillAmount = healthPercentage / 100f;
         }
     }

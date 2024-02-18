@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -7,6 +8,7 @@ namespace VD
     [RequireComponent(typeof(Rigidbody2D))]
     public class Dice : MonoBehaviour
     {
+        public event Action OnDestroyed;
         private Sprite _icon;
         private Rigidbody2D _rigidBody2D;
         private int _valueAbility;
@@ -44,6 +46,8 @@ namespace VD
         public void OnMassegeDiceLeftClick()
         {
             _abilityMediator.HandleDiceAbility(_currentType, _valueAbility);
+            OnDestroyed?.Invoke();
+            Destroy(gameObject);
         }
 
         public void OnMassegeDiceRightClick()

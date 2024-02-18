@@ -7,21 +7,30 @@ namespace VD
 {
     public class DiceSpawner : MonoBehaviour
     {
-        [SerializeField] private float _spawnCooldown;
+        public List<Dice> SpawnedDice => _spawnedDices;
+        public event Action SpawnFinished;
+        [SerializeField] private float _spawnCooldown = 0.5f;
         [SerializeField] private List<Transform> _spawnPoints;
         [SerializeField] private DiceFactory _diceFactory;
         [SerializeField] private int _minSpawnCount;
         [SerializeField] private int _maxSpawnCount;
+        List<Dice> _spawnedDices = new List<Dice>();
         private AbilityMediator _abilityMediator;
         private Coroutine _spawn;
-        private int spawnedCount = 0;
+        private int _spawnedCount;
         private const float BaseScale = 0.3f;
 
-        public void StartWork(AbilityMediator abilityMediator)
+        public void Initialize(AbilityMediator abilityMediator)
         {
             _abilityMediator = abilityMediator;
+        }
 
+        public void SpawnDice()
+        {
             StopWork();
+
+            _spawnedCount = 0;
+            _spawnedDices.Clear();
             _spawn = StartCoroutine(Spawn());
         }
 
@@ -30,15 +39,18 @@ namespace VD
             if (_spawn != null)
                 StopCoroutine(_spawn);
         }
-
         private IEnumerator Spawn()
         {
-            while (spawnedCount < _maxSpawnCount)
+            while (_spawnedCount < _maxSpawnCount)
             {
                 int spawnCount = UnityEngine.Random.Range(_minSpawnCount, _maxSpawnCount + 1);
-
-                for (int i = 0; i < spawnCount && spawnedCount < _maxSpawnCount; i++)
+                for (int i = 0; i < spawnCount; i++)
                 {
+                    if (_spawnedCount >= _maxSpawnCount)
+                    {
+                        break;
+                    }
+
                     Transform selectedSpawnPoint = _spawnPoints[UnityEngine.Random.Range(0, _spawnPoints.Count)];
                     Dice dice = _diceFactory.Get((DiceType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(DiceType)).Length));
                     dice.SetAbilityMediator(_abilityMediator);
@@ -46,10 +58,15 @@ namespace VD
                     dice.transform.SetParent(selectedSpawnPoint, false);
                     dice.MoveTo(selectedSpawnPoint.position);
 
-                    spawnedCount++;
+                    _spawnedDices.Add(dice);
+                    _spawnedCount++;
                 }
                 yield return new WaitForSeconds(_spawnCooldown);
             }
+
+            SpawnFinished?.Invoke();
         }
+
+
     }
 }

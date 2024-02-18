@@ -25,7 +25,7 @@ namespace VD
 
         public void HandleLeftClick()
         {
-            Debug.Log("Passive");
+            //Debug.Log("Passive");
         }
 
 

@@ -1,17 +1,22 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 namespace VD
 {
-    public class Enemy : MonoBehaviour, IDamageable
+    public class Character : MonoBehaviour, IDamageable
     {
-        public Action onDead;
+        public Action<GameFightEndReason> onDead;
+        public GameFightEndReason GameOverType => _gameOverType;
         public Action onDamage;
         private HealthComponent _healthComponent;
+        private GameFightEndReason _gameOverType;
         [SerializeField] private ViewComponent _viewComponent;
-        public virtual void Initialize(EnemyConfig config)
+
+        public void Initialization(CharacterConfig config)
         {
             _healthComponent = new HealthComponent(config.MaxHealth);
+            _gameOverType = GameFightEndReason.PlayerDeath;
         }
         public int CurrentHealth => _healthComponent.currentHealth;
         public int MaxHealth => _healthComponent.maxHealth;
@@ -23,14 +28,16 @@ namespace VD
 
             if (_healthComponent.isDead) Death();
         }
+
         private void Death()
         {
-            onDead?.Invoke();
-
+            onDead?.Invoke(_gameOverType);
+            Destroy(gameObject);
         }
+
         public void ApplyHealing(int amount)
         {
-            Debug.Log("Enemy Health");
+
         }
     }
 }
