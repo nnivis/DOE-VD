@@ -6,7 +6,6 @@ namespace VD
 {
     public class Timer : MonoBehaviour
     {
-        public Action<GameFightEndReason> onTimerUp;
         [SerializeField] private GameFightViewMediator _gameFightViewMediator;
         private const float _defaultTimer = 5f;
         private GamePlayMediator _gamePlayMediator;
@@ -20,9 +19,7 @@ namespace VD
         private void Construct(GamePlayMediator gamePlayMediator)
         {
             _gamePlayMediator = gamePlayMediator;
-            _gamePlayMediator.OnGameOver += HandleTimerExpiration;
             _gameFightEndReason = GameFightEndReason.TimeUp;
-
             _isTimerStart = false;
         }
 
@@ -30,10 +27,6 @@ namespace VD
         {
             _currentTimer = _defaultTimer;
             _isTimerStart = true;
-        }
-        private void OnDestroy()
-        {
-            _gamePlayMediator.OnGameOver -= HandleTimerExpiration;
         }
         private void Update()
         {
@@ -50,7 +43,7 @@ namespace VD
                 if (_currentTimer <= 0f)
                 {
                     _currentTimer = 0f;
-                    HandleTimerExpiration(_gameFightEndReason);
+                    HandleTimerExpiration();
                     _isTimerStart = false;
                 }
             }
@@ -61,9 +54,9 @@ namespace VD
             _gameFightViewMediator.UpdateTimerInfo(_defaultTimer, _currentTimer);
         }
 
-        private void HandleTimerExpiration(GameFightEndReason reason)
+        private void HandleTimerExpiration()
         {
-            onTimerUp?.Invoke(reason);
+            _gamePlayMediator.NotifyGameOver(_gameFightEndReason);
         }
     }
 }

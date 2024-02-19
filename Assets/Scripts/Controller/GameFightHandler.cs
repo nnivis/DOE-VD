@@ -26,20 +26,16 @@ namespace VD
             _gamePlayMediator.OnGameOver += GameFightOver;
             _diceSpawner.Initialize(_abilityMediator);
         }
-
         public void StartGame()
         {
             SpawnComponents();
             _abilityMediator.SetComponent(_character, _enemy);
             _timer.StartTimer();
         }
-
-
         private void OnDisable()
         {
             _activeDice.ForEach(dice => dice.OnDestroyed -= DiceDestroyed);
         }
-
         private void SpawnComponents()
         {
             _diceSpawner.SpawnDice();
@@ -47,20 +43,15 @@ namespace VD
             _enemy = _enemySpawner.SpawnEnemy();
             _diceSpawner.SpawnFinished += AddSpawnedDiceToActiveDice;
         }
-
         private void DiceDestroyed()
         {
             _activeDice.RemoveAt(0);
-
-            Debug.Log(_activeDice.Count);
-
             if (_activeDice.Count == 0)
             {
                 _activeDice.Clear();
                 _diceSpawner.SpawnDice();
                 _diceSpawner.SpawnFinished += AddSpawnedDiceToActiveDice;
             }
-
         }
         private void AddSpawnedDiceToActiveDice()
         {

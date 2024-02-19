@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 namespace VD
 {
@@ -9,7 +8,6 @@ namespace VD
 
         public void NotifyGameOver(GameFightEndReason gameOverType)
         {
-            Debug.Log("s");
             OnGameOver?.Invoke(gameOverType);
         }
     }
