@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 602962c51bd4701499af3579e65b44d9, type: 3}
-  m_Name: DiceFactory
+  m_Name: DiceCubeFactory
   m_EditorClassIdentifier: 
   _attackPlayer:
     _prefab: {fileID: 4151209465868562113, guid: aa2373862a6bf5f4a89f413d63c7fabb, type: 3}

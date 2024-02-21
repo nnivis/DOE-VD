@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09053285c7266a8439ebaa32a74d6e41, type: 3}
+  m_Name: LocationFactory
+  m_EditorClassIdentifier: 
+  _locationConfig:
+    _map: {fileID: 3519920354384425473, guid: dd11ecbf136f08745ac8e8ff3fd6065f, type: 3}
+    _numberofLevels: 0
+    _locationType: 0
+    _diceFactory: {fileID: 11400000, guid: 2bbe245a5ae2eac4c9a491659d6b22c2, type: 2}
+    _rollDiceConfig: {fileID: 11400000, guid: 8de3803cb12c9de4481cd55e65070bd3, type: 2}

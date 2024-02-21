@@ -9,7 +9,6 @@ namespace VD
     public class Dice : MonoBehaviour
     {
         public event Action OnDestroyed;
-        private Sprite _icon;
         private Rigidbody2D _rigidBody2D;
         private int _valueAbility;
         private float _speed = 2.5f;
@@ -21,7 +20,6 @@ namespace VD
         public void Initialize(IDiceConfigProvider configProvider, Sprite icon, int valueAbility, DiceType type)
         {
             _configProvider = configProvider;
-            _icon = icon;
             _valueAbility = valueAbility;
             _currentType = type;
 
@@ -64,11 +62,9 @@ namespace VD
         }
         public void UpdateConfig(DiceConfig config)
         {
-            _icon = config.Icon;
+            SetIcon(config.Icon);
             _valueAbility = config.Value;
             _currentType = config.Type;
-
-            SetIcon(_icon);
         }
         public void FixedUpdate() => _diceMove.UpdateMovement();
         public void SetIcon(Sprite sprite) => GetComponentInChildren<Image>().sprite = sprite;

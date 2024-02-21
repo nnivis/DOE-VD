@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7460325488314997278}
   - component: {fileID: 3838043134337745184}
   - component: {fileID: 1801625841204824135}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: CharacterImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7764706, g: 0.7764706, b: 0.7764706, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 6526743065560533832}
   - component: {fileID: 8488593971202165129}
   - component: {fileID: 5756423804091813580}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: 'CharacterHeath '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 4488685275262007935}
   - component: {fileID: -3160836680958426208}
   - component: {fileID: 1254059596161119310}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 7329970955685632297}
   - component: {fileID: 505104919739940116}
   - component: {fileID: 4340883409378305801}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: CharacterHeath
   m_TagString: Untagged
   m_Icon: {fileID: 0}

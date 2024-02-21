@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76d8c518aa6b3f3459b6b5dfda2a8855, type: 3}
+  m_Name: RollCubeConfig
+  m_EditorClassIdentifier: 
+  _rollDice: {fileID: 2915961752703586600, guid: 54b83c4b95de6b046933af49e101069b, type: 3}
+  _numberOfFaces: 6
+  _background: {fileID: 21300000, guid: bf232118f05dba14cbc175f9b90cc4cf, type: 3}
+  _numberIcon: {fileID: 21300000, guid: e25a051a4d5ea41429ce925999da16b4, type: 3}
