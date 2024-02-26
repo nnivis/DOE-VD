@@ -1,50 +1,32 @@
 using UnityEngine;
-using Zenject;
 using System;
-using System.IO;
+using System.Collections.Generic;
 
 namespace VD
 {
-    public class EnemyFactory 
+    [CreateAssetMenu(fileName = "EnemyFactory", menuName = "Factory/EnemyFactory", order = 3)]
+    public class EnemyFactory : ScriptableObject
     {
-        private const string BlueRadasockConfig = "BlueRadasockConfig";
-        private const string RedRarasockConfig = "RedRadasockConfig";
-        private const string ConfigsPath = "EnemyConfigs";
+        [SerializeField] private List<EnemyConfig> _configs;
 
-        private EnemyConfig _blueRadasock, _redRadasock;
-        private DiContainer _container;
-
-        public EnemyFactory(DiContainer container)
+        public Enemy Get()
         {
-            _container = container;
-            Load();
+            EnemyConfig config = GetConfig();
+            Enemy enemy = Instantiate(config.Prefab);
+            // enemy.Initialize(config);
+            return enemy;
         }
 
-        public Enemy Get(EnemyType enemyType)
+        private EnemyConfig GetConfig()
         {
-            EnemyConfig config = GetConfig(enemyType);
-            Enemy instance = _container.InstantiatePrefabForComponent<Enemy>(config.Prefab);
-            instance.Initialize(config);
-            return instance;
-        }
-
-        private void Load()
-        {
-            _blueRadasock = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, BlueRadasockConfig));
-            _redRadasock = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, RedRarasockConfig));
-        }
-
-        private EnemyConfig GetConfig(EnemyType enemyType)
-        {
-            switch (enemyType)
+            if (_configs.Count == 0)
             {
-                case EnemyType.BlueRadasock:
-                    return _blueRadasock;
-                case EnemyType.RedRarasock:
-                    return _redRadasock;
-                default:
-                    throw new ArgumentException(nameof(enemyType));
+                throw new ArgumentException("The List is empty");
             }
+
+            int randomIndex = UnityEngine.Random.Range(0, _configs.Count);
+            EnemyConfig config = _configs[randomIndex];
+            return config;
         }
     }
 }

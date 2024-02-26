@@ -3,6 +3,6 @@ namespace VD
 {
     public enum LocationType 
     {
-        FistLocation
+        FirstLocation
     }
 }

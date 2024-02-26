@@ -21,7 +21,7 @@ namespace VD
 
         public Enemy SpawnEnemy()
         {
-            Enemy enemy = _enemyFactory.Get((EnemyType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(EnemyType)).Length));
+            Enemy enemy = _enemyFactory.Get();
             enemy.onDead += (GameOverType) => _gamePlayMediator.NotifyGameOver(enemy.GameOverType);
             enemy.transform.SetParent(_spawnPoint);
             enemy.transform.localScale = new Vector3(BaseScale, BaseScale, BaseScale);

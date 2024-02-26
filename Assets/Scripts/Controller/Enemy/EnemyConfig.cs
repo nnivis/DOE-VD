@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
 namespace VD
 {
-    [CreateAssetMenu(fileName = "EnemyConfig", menuName = "Config/EnemyConfig", order = 2)]
-    public class EnemyConfig : ScriptableObject
+    [Serializable]
+    public class EnemyConfig
     {
         [SerializeField] private Enemy _prefab;
         [SerializeField] private int _health;

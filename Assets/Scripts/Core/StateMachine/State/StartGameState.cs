@@ -4,16 +4,16 @@ namespace VD
 {
     public class StartGameState : StateMachineBehavior
     {
-        // Start is called before the first frame update
-        void Start()
+        [SerializeField] private LocationHandler _locationHandler;
+        protected override void OnEnter()
         {
-        
+            _locationHandler.StartWork();
         }
 
-        // Update is called once per frame
-        void Update()
+        protected override void OnExit()
         {
-        
+
         }
+
     }
 }

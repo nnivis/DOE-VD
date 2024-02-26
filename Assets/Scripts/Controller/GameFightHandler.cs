@@ -26,7 +26,7 @@ namespace VD
             _gamePlayMediator.OnGameOver += GameFightOver;
             _diceSpawner.Initialize(_abilityMediator);
         }
-        public void StartGame()
+        public void StartFight()
         {
             SpawnComponents();
             _abilityMediator.SetComponent(_character, _enemy);

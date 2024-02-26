@@ -8,10 +8,8 @@ namespace VD
         [SerializeField] private GameFightHandler _gameFightHandler;
         protected override void OnEnter()
         {
-            _gameFightHandler.StartGame();
+            _gameFightHandler.StartFight();
         }
-
-        
 
         protected override void OnExit()
         {
