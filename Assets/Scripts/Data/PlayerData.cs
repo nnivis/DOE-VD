@@ -15,6 +15,8 @@ namespace VD
             _coins = 3000;
             _passedLevels = new Dictionary<LocationType, List<int>>();
             _selectedLocation = LocationType.FirstLocation;
+
+            //AddPassedLevel(LocationType.FirstLocation, 0);
         }
 
         [JsonConstructor]

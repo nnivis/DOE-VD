@@ -5,12 +5,15 @@ namespace VD
     public class BootstrapGame : MonoBehaviour
     {
 
+        [SerializeField] FileDeletionExample _fileDeletionExample;
         [SerializeField] LocationHandler _locationHandler;
         private IDataProvider _dataProvider;
         private IPersistentData _persistentPlayertData;
 
         private void Awake()
         {
+            _fileDeletionExample.DeleteJsonFile();
+
             InitializeData();
             InitializeLevel();
         }
@@ -24,12 +27,12 @@ namespace VD
 
         private void InitializeLevel()
         {
-            OpenLevelChecker openLevelChecker = new OpenLevelChecker(_persistentPlayertData);
+            PassedLevelChecker passedLevelChecker = new PassedLevelChecker(_persistentPlayertData);
             LevelPasser levelPasser = new LevelPasser(_persistentPlayertData);
             SelectedLocationChecker selectedLocationChecker = new SelectedLocationChecker(_persistentPlayertData);
             LocationSelector locationSelector = new LocationSelector(_persistentPlayertData);
 
-            _locationHandler.Initialize(_dataProvider, openLevelChecker, levelPasser, selectedLocationChecker, locationSelector);
+            _locationHandler.Initialize(_dataProvider, passedLevelChecker, levelPasser, selectedLocationChecker, locationSelector);
 
         }
 

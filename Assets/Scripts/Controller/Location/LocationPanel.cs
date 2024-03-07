@@ -8,11 +8,12 @@ namespace VD
     {
         [SerializeField] private Transform _locationParent;
         private LocationView _locationView;
-        private OpenLevelChecker _openLevelChecker;
+        private PassedLevelChecker _passedLevelChecker;
         private SelectedLocationChecker _selectedLocationChecker;
-        public void Initialize(OpenLevelChecker openLevelChecker, SelectedLocationChecker selectedLocationChecker)
+        private ILevelActivator _levelActivator;
+        public void Initialize(PassedLevelChecker passedLevelChecker, SelectedLocationChecker selectedLocationChecker)
         {
-            _openLevelChecker = openLevelChecker;
+            _passedLevelChecker = passedLevelChecker;
             _selectedLocationChecker = selectedLocationChecker;
         }
 
@@ -23,6 +24,8 @@ namespace VD
 
             Location selectedLocation = SetSelectedLocation(locations);
             _locationView = SpawnLocationView(selectedLocation);
+            _levelActivator = GetLevelActivator(selectedLocation.LocationType);
+            _levelActivator.ActivateLevels(_locationView.LevelViews, selectedLocation);
 
         }
 
@@ -49,6 +52,17 @@ namespace VD
             LocationView locationView = Instantiate(selectedLocation.LocationView, _locationParent);
             locationView.transform.localScale = Vector3.one;
             return locationView;
+        }
+
+        private ILevelActivator GetLevelActivator(LocationType type)
+        {
+            switch (type)
+            {
+                case LocationType.FirstLocation:
+                    return new FirstLevelActivator(_passedLevelChecker);
+                default:
+                    throw new ArgumentException(nameof(type));
+            }
         }
 
     }
