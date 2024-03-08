@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ee5a83c679336b4880cae039a9fecdb, type: 3}
   m_Name: LocationContent
   m_EditorClassIdentifier: 
-  _location:
+  _locations:
   - {fileID: 11400000, guid: d310b05a00360544190048e0578a1df5, type: 2}

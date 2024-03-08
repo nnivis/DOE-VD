@@ -20,9 +20,5 @@ namespace VD
             Container.Bind<GamePlayMediator>().AsSingle();
         }
 
-        private void BindGameFightViewMediator()
-        {
-            Container.Bind<GameFightViewMediator>().AsSingle();
-        }
     }
 }

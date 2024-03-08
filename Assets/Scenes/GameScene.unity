@@ -578,6 +578,7 @@ GameObject:
   - component: {fileID: 276841380}
   - component: {fileID: 276841381}
   - component: {fileID: 276841382}
+  - component: {fileID: 276841383}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -617,6 +618,7 @@ MonoBehaviour:
   - {fileID: 276841380}
   - {fileID: 276841381}
   - {fileID: 276841382}
+  - {fileID: 276841383}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -670,6 +672,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8f6a66353e2a54792343baad4b9df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &276841383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276841377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46e7e4605b21cb4fad565044e8c5014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationHandler: {fileID: 1485377350}
 --- !u!1 &315127525
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,6 +949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b4638dff44c66446bd00cf93896efea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _locationHandler: {fileID: 1485377350}
 --- !u!224 &444476581 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2783015776203037970, guid: dd11ecbf136f08745ac8e8ff3fd6065f, type: 3}
@@ -1156,6 +1172,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fileDeletionExample: {fileID: 500550906}
   _locationHandler: {fileID: 1485377350}
+  _levelBuildHandler: {fileID: 0}
+  _mainSceneMode: {fileID: 334151349}
 --- !u!114 &500550906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2597,7 +2615,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1220661959}
   m_Layer: 5
-  m_Name: Game
+  m_Name: LevelBuild
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3194,7 +3212,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1485377349}
   - component: {fileID: 1485377350}
-  - component: {fileID: 1485377351}
   m_Layer: 0
   m_Name: Location
   m_TagString: Untagged
@@ -3230,22 +3247,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _locationContent: {fileID: 11400000, guid: 4f50ab346c73c104d8115c264bc3b9c4, type: 2}
-  _locationPanel: {fileID: 1485377351}
+  _locationPanel: {fileID: 3901112602695591482}
   _gameFightHandler: {fileID: 1418688336}
-  gameHandler: {fileID: 1992652292}
---- !u!114 &1485377351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1485377348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3c766923ab963149867235ca87a2d21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _locationParent: {fileID: 1733966450}
+  _levelBuildHandler: {fileID: 0}
 --- !u!1 &1569383399
 GameObject:
   m_ObjectHideFlags: 0
@@ -3700,7 +3704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1746436159
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4123,7 +4127,7 @@ GameObject:
   - component: {fileID: 1992652291}
   - component: {fileID: 1992652292}
   m_Layer: 0
-  m_Name: GameState
+  m_Name: LevelBuildState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4158,6 +4162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_views:
   - {fileID: 1220661958}
+  _levelBuildHandler: {fileID: 1992652292}
 --- !u!114 &1992652292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4688,7 +4693,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3c766923ab963149867235ca87a2d21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _locationParent: {fileID: 0}
+  _locationParent: {fileID: 1733966450}
+  _locationMediator: {fileID: 439036377}
 --- !u!223 &3989568788099871902
 Canvas:
   m_ObjectHideFlags: 0

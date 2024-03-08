@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,9 +6,16 @@ namespace VD
 {
     public class LevelView : MonoBehaviour
     {
+        public Action<int> OnActiveLevelClicked;
         [SerializeField] Button _inactiveButton;
         [SerializeField] Button _activeButton;
         [SerializeField] Button _passedButton;
+        private int _levelIndex;
+
+        public void UpdateIndex(int levelIndex)
+        {
+            _levelIndex = levelIndex;
+        }
 
         public void InactiveState()
         {
@@ -28,6 +36,21 @@ namespace VD
             _inactiveButton.gameObject.SetActive(false);
             _activeButton.gameObject.SetActive(false);
             _passedButton.gameObject.SetActive(true);
+        }
+
+        private void OnEnable()
+        {
+            _activeButton.onClick.AddListener(OnActiveButtonClicked);
+        }
+
+        private void OnDisable()
+        {
+            _activeButton.onClick.RemoveListener(OnActiveButtonClicked);
+        }
+        private void OnActiveButtonClicked()
+        {
+            if (OnActiveLevelClicked != null)
+                OnActiveLevelClicked(_levelIndex);
         }
     }
 }

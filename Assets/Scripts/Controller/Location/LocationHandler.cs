@@ -2,34 +2,62 @@ using UnityEngine;
 
 namespace VD
 {
-    public class LocationHandler : MonoBehaviour
+    public class LocationHandler : MonoBehaviour, ILocationProvaider
     {
         [SerializeField] private LocationContent _locationContent;
         [SerializeField] private LocationPanel _locationPanel;
         [SerializeField] private GameFightHandler _gameFightHandler;
-        [SerializeField] private GameHandler gameHandler;
-        private LocationMediator _locationMediator;
+        [SerializeField] private LevelBuildHandler _levelBuildHandler;
+        private MainSceneMode _mainSceneMode;
         private IDataProvider _dataProvider;
         private PassedLevelChecker _passedLevelChecker;
         private LevelPasser _levelPasser;
         private SelectedLocationChecker _selectedLocationChecker;
         private LocationSelector _locationSelector;
-        private LocationType _currentLocationType;
-        private int _numberofLevels;
+        private Location _currentLocation;
+        private int _currentLevelIndex;
 
-        public void Initialize(IDataProvider dataProvider, PassedLevelChecker passedLevelChecker, LevelPasser levelPasser, SelectedLocationChecker selectedLocationChecker, LocationSelector locationSelector)
+        public RollDiceConfig rollDiceConfig => _currentLocation.RollDiceConfig;
+        public EnemyFactory enemyFactory => _currentLocation.EnemyFactory;
+        public DiceFactory diceFactory => _currentLocation.DiceFactory;
+
+        public void Initialize(IDataProvider dataProvider, PassedLevelChecker passedLevelChecker, LevelPasser levelPasser, SelectedLocationChecker selectedLocationChecker, LocationSelector locationSelector, MainSceneMode mainSceneMode)
         {
             _dataProvider = dataProvider;
             _passedLevelChecker = passedLevelChecker;
             _levelPasser = levelPasser;
             _selectedLocationChecker = selectedLocationChecker;
             _locationSelector = locationSelector;
+            _mainSceneMode = mainSceneMode;
 
-            _locationPanel.Initialize(_passedLevelChecker, _selectedLocationChecker);
+            _locationPanel.Initialize(_passedLevelChecker);
         }
         public void StartWork()
         {
-            _locationPanel.Show(_locationContent.Location);
+            SetSelectedLocation();
+            _locationPanel.Show(_currentLocation);
+        }
+
+        public void ActiveLevel(int indexLevel)
+        {
+            _currentLevelIndex = indexLevel;
+            _mainSceneMode.GotoLevelBuild();
+        }
+
+        public void PassLevel()
+        {
+
+        }
+        private void SetSelectedLocation()
+        {
+            foreach (Location location in _locationContent.Locations)
+            {
+                _selectedLocationChecker.Visit(location.LocationType);
+                if (_selectedLocationChecker.IsSelected)
+                {
+                    _currentLocation = location;
+                }
+            }
         }
     }
 }

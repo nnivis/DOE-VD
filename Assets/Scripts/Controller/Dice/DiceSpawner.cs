@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace VD
 {
@@ -14,7 +15,8 @@ namespace VD
         [SerializeField] private DiceFactory _diceFactory;
         [SerializeField] private int _minSpawnCount;
         [SerializeField] private int _maxSpawnCount;
-        List<Dice> _spawnedDices = new List<Dice>();
+        private ILocationProvaider _locationProvaider;
+        private List<Dice> _spawnedDices = new List<Dice>();
         private AbilityMediator _abilityMediator;
         private Coroutine _spawn;
         private int _spawnedCount;
@@ -25,10 +27,17 @@ namespace VD
             _abilityMediator = abilityMediator;
         }
 
+        [Inject]
+        private void Construct(ILocationProvaider locationProvaider)
+        {
+            _locationProvaider = locationProvaider;
+        }
+
         public void SpawnDice()
         {
             StopWork();
 
+            _diceFactory = _locationProvaider.diceFactory;
             _spawnedCount = 0;
             _spawnedDices.Clear();
             _spawn = StartCoroutine(Spawn());

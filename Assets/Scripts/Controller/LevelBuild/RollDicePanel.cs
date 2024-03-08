@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VD
 {
-    public class GameState : StateMachineBehavior
+    public class RollDicePanel : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()

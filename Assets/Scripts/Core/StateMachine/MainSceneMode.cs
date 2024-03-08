@@ -8,9 +8,9 @@ namespace VD
 			ChangeState<StartGameState>();
 		}
 
-		public void GotoGame()
+		public void GotoLevelBuild()
 		{
-			ChangeState<GameState>();
+			ChangeState<LevelBuildState>();
 		}
 
 		public void GotoMainGameFight()

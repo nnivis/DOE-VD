@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VD
 {
-    public class GameHandler : MonoBehaviour
+    public class LevelBuildPanel : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()

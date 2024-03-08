@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace VD
@@ -7,26 +6,31 @@ namespace VD
     public class LocationPanel : MonoBehaviour
     {
         [SerializeField] private Transform _locationParent;
+        [SerializeField] private LocationMediator _locationMediator;
         private LocationView _locationView;
         private PassedLevelChecker _passedLevelChecker;
-        private SelectedLocationChecker _selectedLocationChecker;
         private ILevelActivator _levelActivator;
-        public void Initialize(PassedLevelChecker passedLevelChecker, SelectedLocationChecker selectedLocationChecker)
+        public void Initialize(PassedLevelChecker passedLevelChecker)
         {
             _passedLevelChecker = passedLevelChecker;
-            _selectedLocationChecker = selectedLocationChecker;
         }
 
-        public void Show(IEnumerable<Location> locations)
+        public void Show(Location location)
         {
 
             Clear();
 
-            Location selectedLocation = SetSelectedLocation(locations);
+            Location selectedLocation = location;
             _locationView = SpawnLocationView(selectedLocation);
             _levelActivator = GetLevelActivator(selectedLocation.LocationType);
             _levelActivator.ActivateLevels(_locationView.LevelViews, selectedLocation);
 
+            _locationView.LevelViews.ForEach(levelView => levelView.OnActiveLevelClicked += ActiveLevel);
+        }
+
+        private void ActiveLevel(int levelIndex)
+        {
+           _locationMediator.ActiveLevel(levelIndex);
         }
 
         private void Clear()
@@ -35,21 +39,10 @@ namespace VD
                 Destroy(_locationView.gameObject);
         }
 
-        private Location SetSelectedLocation(IEnumerable<Location> locations)
-        {
-            foreach (Location location in locations)
-            {
-                _selectedLocationChecker.Visit(location.LocationType);
-                if (_selectedLocationChecker.IsSelected)
-                {
-                    return location;
-                }
-            }
-            throw new InvalidOperationException("No location was selected.");
-        }
         private LocationView SpawnLocationView(Location selectedLocation)
         {
             LocationView locationView = Instantiate(selectedLocation.LocationView, _locationParent);
+            locationView.Initialize();
             locationView.transform.localScale = Vector3.one;
             return locationView;
         }

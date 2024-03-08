@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using Zenject;
 
@@ -12,15 +10,18 @@ namespace VD
         private const float BaseScale = 3.0f;
         private GamePlayMediator _gamePlayMediator;
         private EnemyFactory _enemyFactory;
+        private ILocationProvaider _locationProvaider;
         [Inject]
-        private void Construct(EnemyFactory enemyFactory, GamePlayMediator gamePlayMediator)
+        private void Construct(GamePlayMediator gamePlayMediator, ILocationProvaider locationProvaider)
         {
-            _enemyFactory = enemyFactory;
             _gamePlayMediator = gamePlayMediator;
+            _locationProvaider = locationProvaider;
         }
 
         public Enemy SpawnEnemy()
         {
+            _enemyFactory = _locationProvaider.enemyFactory;
+
             Enemy enemy = _enemyFactory.Get();
             enemy.onDead += (GameOverType) => _gamePlayMediator.NotifyGameOver(enemy.GameOverType);
             enemy.transform.SetParent(_spawnPoint);

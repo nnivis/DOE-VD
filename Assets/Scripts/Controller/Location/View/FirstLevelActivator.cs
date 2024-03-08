@@ -24,6 +24,10 @@ namespace VD
                 if (levelViewsList.Count > 0)
                 {
                     levelViewsList[0].ActiveState();
+                    for (int i = 1; i < levelViewsList.Count; i++)
+                    {
+                        levelViewsList[i].InactiveState();
+                    }
                 }
             }
         }
@@ -83,6 +87,11 @@ namespace VD
                     }
                     return;
                 }
+            }
+
+            foreach (var levelView in levelViewsList)
+            {
+                levelView.InactiveState();
             }
         }
 

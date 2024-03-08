@@ -7,6 +7,8 @@ namespace VD
 
         [SerializeField] FileDeletionExample _fileDeletionExample;
         [SerializeField] LocationHandler _locationHandler;
+        [SerializeField] LevelBuildHandler _levelBuildHandler;
+        [SerializeField] MainSceneMode _mainSceneMode;
         private IDataProvider _dataProvider;
         private IPersistentData _persistentPlayertData;
 
@@ -15,7 +17,7 @@ namespace VD
             _fileDeletionExample.DeleteJsonFile();
 
             InitializeData();
-            InitializeLevel();
+            InitializeLocation();
         }
         private void InitializeData()
         {
@@ -25,14 +27,19 @@ namespace VD
             LoadDataOrInit();
         }
 
-        private void InitializeLevel()
+        private void InitializeLocation()
         {
             PassedLevelChecker passedLevelChecker = new PassedLevelChecker(_persistentPlayertData);
             LevelPasser levelPasser = new LevelPasser(_persistentPlayertData);
             SelectedLocationChecker selectedLocationChecker = new SelectedLocationChecker(_persistentPlayertData);
             LocationSelector locationSelector = new LocationSelector(_persistentPlayertData);
 
-            _locationHandler.Initialize(_dataProvider, passedLevelChecker, levelPasser, selectedLocationChecker, locationSelector);
+            _locationHandler.Initialize(_dataProvider, passedLevelChecker, levelPasser, selectedLocationChecker, locationSelector, _mainSceneMode);
+
+        }
+
+        private void InitializeGame()
+        {
 
         }
 

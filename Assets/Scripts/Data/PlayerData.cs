@@ -16,7 +16,7 @@ namespace VD
             _passedLevels = new Dictionary<LocationType, List<int>>();
             _selectedLocation = LocationType.FirstLocation;
 
-            //AddPassedLevel(LocationType.FirstLocation, 0);
+            AddPassedLevel(LocationType.FirstLocation, 0);
         }
 
         [JsonConstructor]
