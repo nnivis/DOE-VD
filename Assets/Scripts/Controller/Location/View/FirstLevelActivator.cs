@@ -51,7 +51,6 @@ namespace VD
         {
             foreach (int levelIndex in passedLevels)
             {
-                Debug.Log(levelIndex);
                 levelViewsList[levelIndex].PassedState();
             }
         }

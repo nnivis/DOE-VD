@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d8c518aa6b3f3459b6b5dfda2a8855, type: 3}
   m_Name: RollCubeConfig
   m_EditorClassIdentifier: 
-  _rollDice: {fileID: 2915961752703586600, guid: 54b83c4b95de6b046933af49e101069b, type: 3}
-  _numberOfFaces: 6
+  _rollDice: {fileID: 3428607497708658205, guid: 399825c7e358f554b9e593cf48f72bf2, type: 3}
+  _indexOfFaces: 6
   _background: {fileID: 21300000, guid: bf232118f05dba14cbc175f9b90cc4cf, type: 3}
-  _numberIcon: {fileID: 21300000, guid: e25a051a4d5ea41429ce925999da16b4, type: 3}
+  _iconIndexPrefab: {fileID: 7803273627757115215, guid: 5daf8c6c5d28bbd4e87d2204f67d27d8, type: 3}

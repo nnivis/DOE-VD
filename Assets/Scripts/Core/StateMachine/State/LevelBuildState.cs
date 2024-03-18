@@ -8,7 +8,7 @@ namespace VD
 
         protected override void OnEnter()
         {
-            _levelBuildHandler.StartBuildingLevel();
+            _levelBuildHandler.StartWork();
         }
 
         protected override void OnExit()

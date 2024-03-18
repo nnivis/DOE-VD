@@ -1,21 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace VD
 {
     public class RollDicePanel : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        [SerializeField] private RollDiceButton _rollDiceButton;
+        [SerializeField] private LevelBuildMediator _levelBuildMediator;
+        [SerializeField] private Transform _parentSpawn;
+        private RollDiceView _rollDiceView;
+        private ILocationProvaider _locationProvaider;
+
+        public void Initialize(ILocationProvaider locationProvaider)
         {
-        
+            _locationProvaider = locationProvaider;
+            _rollDiceButton.OnActiveRollDiceClicked += StartGeneratedRollDice;
         }
 
-        // Update is called once per frame
-        void Update()
+        public void StartGeneratedRollDice()
         {
-        
+            _rollDiceButton.DeactivateRollDiceButton();
+
+            _rollDiceView = SpawnRollDice();
+            _rollDiceView.OnNumberOfLevels += GenereteRollDiceDone;
+            _rollDiceView.ActivateRollDiceView();
+        }
+        private void GenereteRollDiceDone(int numberOfLevel)
+        {
+            _levelBuildMediator.UpdateGenereteLevelNumberDone(numberOfLevel);
+            
+        }
+        private RollDiceView SpawnRollDice()
+        {
+            RollDiceView rollDiceView = Instantiate(_locationProvaider.rollDiceConfig.RollDice, _parentSpawn);
+            rollDiceView.Initialize(_locationProvaider.rollDiceConfig);
+            rollDiceView.transform.localScale = Vector3.one;
+            rollDiceView.DeactivateRollDiceView();
+            return rollDiceView;
         }
     }
 }
