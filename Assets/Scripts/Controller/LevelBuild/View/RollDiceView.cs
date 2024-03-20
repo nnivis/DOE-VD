@@ -23,7 +23,7 @@ namespace VD
         public void ActivateRollDiceView()
         {
             gameObject.SetActive(true);
-            StartCoroutine(SpawnIconsOverTime(30));
+            StartCoroutine(SpawnIconsOverTime(1));
         }
 
         private IEnumerator SpawnIconsOverTime(float duration)

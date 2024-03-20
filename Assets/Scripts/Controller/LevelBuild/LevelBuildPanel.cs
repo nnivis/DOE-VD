@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace VD
 {
@@ -72,6 +74,8 @@ namespace VD
             }
 
             SpawnBlocksOfType(BlockType.Finish);
+
+            StartCoroutine(SpawnrBlocks());
         }
 
         private void SpawnBlock(BlockConfig blockConfig)
@@ -79,5 +83,37 @@ namespace VD
             BlockView blockView = _blockBuildFactory.Get(blockConfig, _spawnParent);
             _blockViews.Add(blockView);
         }
+
+        private IEnumerator SpawnrBlocks()
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            InitializationCharacterView();
+        }
+
+        private void InitializationCharacterView()
+        {
+            DisableGridLayoutGroup();
+
+            _characterView.gameObject.SetActive(true);
+
+            List<Vector3> blockPositions = _blockViews.Select(view => GetChildPositionRelativeToLayoutGroup(view.transform)).ToList();
+
+            _characterView.Initialization(blockPositions);
+            _characterView.StartAnimation();
+        }
+        private void DisableGridLayoutGroup()
+        {
+            GridLayoutGroup gridLayout = _spawnParent.GetComponent<GridLayoutGroup>();
+            gridLayout.enabled = false;
+        }
+
+        private Vector3 GetChildPositionRelativeToLayoutGroup(Transform child)
+        {
+            RectTransform childRectTransform = child.GetComponent<RectTransform>();
+            Vector3 anchoredPosition = childRectTransform.anchoredPosition;
+            return anchoredPosition;
+        }
+
     }
 }
