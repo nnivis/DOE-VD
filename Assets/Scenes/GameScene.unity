@@ -726,6 +726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _locationHandler: {fileID: 1485377350}
+  _levelProgressHandler: {fileID: 0}
 --- !u!114 &439036378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,7 +739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2552e25d34922542a0fb5562a2e0247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelBuildHandler: {fileID: 1992652292}
+  _locationHandler: {fileID: 0}
 --- !u!224 &444476581 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2783015776203037970, guid: dd11ecbf136f08745ac8e8ff3fd6065f, type: 3}
@@ -940,7 +941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fileDeletionExample: {fileID: 500550906}
   _locationHandler: {fileID: 1485377350}
-  _levelBuildHandler: {fileID: 1992652292}
+  _levelProgressHandler: {fileID: 1992652292}
   _mainSceneMode: {fileID: 334151349}
 --- !u!114 &500550906
 MonoBehaviour:
@@ -1234,7 +1235,6 @@ MonoBehaviour:
   _spawnParent: {fileID: 933258135}
   _blockBuildFactory: {fileID: 11400000, guid: 15873da0aac9a724fbaba5a1a7225b03, type: 2}
   _characterView: {fileID: 467230082}
-  _levelBuildMediator: {fileID: 439036378}
 --- !u!1 &699557777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,7 +1286,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rollDiceButton: {fileID: 1746436163}
-  _levelBuildMediator: {fileID: 439036378}
   _parentSpawn: {fileID: 1736781465}
 --- !u!1 &726404320
 GameObject:
@@ -1989,7 +1988,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1220661959}
   m_Layer: 5
-  m_Name: LevelBuild
+  m_Name: LeveProgress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2547,7 +2546,6 @@ MonoBehaviour:
   _locationContent: {fileID: 11400000, guid: 4f50ab346c73c104d8115c264bc3b9c4, type: 2}
   _locationPanel: {fileID: 3901112602695591482}
   _gameFightHandler: {fileID: 1418688336}
-  _levelBuildHandler: {fileID: 1992652292}
 --- !u!1 &1569383399
 GameObject:
   m_ObjectHideFlags: 0
@@ -3475,7 +3473,7 @@ GameObject:
   - component: {fileID: 1992652291}
   - component: {fileID: 1992652292}
   m_Layer: 0
-  m_Name: LevelBuildState
+  m_Name: LevelProgressState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3510,7 +3508,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_views:
   - {fileID: 1220661958}
-  _levelBuildHandler: {fileID: 1992652292}
+  _levelProgressHandler: {fileID: 1992652292}
 --- !u!114 &1992652292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3523,9 +3521,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05fda1527d4351d44a249cc54137034d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelBuildPanel: {fileID: 647829678}
+  _levelProgressPanel: {fileID: 647829678}
   _rollDicePanel: {fileID: 699557779}
   _blockContent: {fileID: 11400000, guid: 43f60b34d12ecca48a2589ded9fdb1cf, type: 2}
+  _progressGameMediator: {fileID: 439036377}
 --- !u!1 &2055062880
 GameObject:
   m_ObjectHideFlags: 0
@@ -4302,7 +4301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _locationParent: {fileID: 1733966450}
-  _locationMediator: {fileID: 439036377}
+  _progressGameMediator: {fileID: 439036377}
 --- !u!1 &3966766532472932912
 GameObject:
   m_ObjectHideFlags: 0

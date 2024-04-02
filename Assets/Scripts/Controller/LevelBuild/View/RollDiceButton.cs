@@ -29,5 +29,10 @@ namespace VD
             gameObject.SetActive(false);
         }
 
+        public void ActiveRollDiceButton()
+        {
+            gameObject.SetActive(true);
+        }
+
     }
 }

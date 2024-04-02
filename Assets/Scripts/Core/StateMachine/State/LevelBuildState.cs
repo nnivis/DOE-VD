@@ -4,11 +4,11 @@ namespace VD
 {
     public class LevelBuildState : StateMachineBehavior
     {
-        [SerializeField] private LevelBuildHandler _levelBuildHandler;
+        [SerializeField] private LevelProgressHandler _levelProgressHandler;
 
         protected override void OnEnter()
         {
-            _levelBuildHandler.StartWork();
+            _levelProgressHandler.StartWork();
         }
 
         protected override void OnExit()

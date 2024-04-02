@@ -7,7 +7,7 @@ namespace VD
 
         [SerializeField] FileDeletionExample _fileDeletionExample;
         [SerializeField] LocationHandler _locationHandler;
-        [SerializeField] LevelBuildHandler _levelBuildHandler;
+        [SerializeField] LevelProgressHandler _levelProgressHandler;
         [SerializeField] MainSceneMode _mainSceneMode;
         private IDataProvider _dataProvider;
         private IPersistentData _persistentPlayertData;
@@ -17,7 +17,10 @@ namespace VD
             _fileDeletionExample.DeleteJsonFile();
 
             InitializeData();
+
             InitializeLocation();
+
+            InitializeLevel();
         }
         private void InitializeData()
         {
@@ -38,9 +41,9 @@ namespace VD
 
         }
 
-        private void InitializeGame()
+        private void InitializeLevel()
         {
-
+            _levelProgressHandler.Initialize(_mainSceneMode);
         }
 
         private void LoadDataOrInit()

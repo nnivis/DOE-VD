@@ -1,11 +1,12 @@
+using System;
 using UnityEngine;
 
 namespace VD
 {
     public class RollDicePanel : MonoBehaviour
     {
+        public Action<int> OnGenereteRollDiceDone;
         [SerializeField] private RollDiceButton _rollDiceButton;
-        [SerializeField] private LevelBuildMediator _levelBuildMediator;
         [SerializeField] private Transform _parentSpawn;
         private RollDiceView _rollDiceView;
         private ILocationProvaider _locationProvaider;
@@ -26,8 +27,7 @@ namespace VD
         }
         private void GenereteRollDiceDone(int numberOfLevel)
         {
-            _levelBuildMediator.UpdateGenereteLevelNumberDone(numberOfLevel);
-            
+            OnGenereteRollDiceDone(numberOfLevel);
         }
         private RollDiceView SpawnRollDice()
         {
@@ -36,6 +36,12 @@ namespace VD
             rollDiceView.transform.localScale = Vector3.one;
             rollDiceView.DeactivateRollDiceView();
             return rollDiceView;
+        }
+
+        public void Clear()
+        {
+            Destroy(_rollDiceView);
+            _rollDiceButton.ActiveRollDiceButton();
         }
     }
 }

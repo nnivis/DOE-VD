@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,35 +7,26 @@ using UnityEngine.UI;
 
 namespace VD
 {
-    public class LevelBuildPanel : MonoBehaviour
+    public class LevelProgressPanel : MonoBehaviour
     {
+        public Action OnLevelBuild;
+        public Action OnAnimationComplete;
         [SerializeField] private Transform _spawnParent;
         [SerializeField] private BlockViewFactory _blockBuildFactory;
         [SerializeField] private CharacterView _characterView;
-        [SerializeField] private LevelBuildMediator _levelBuildMediator;
         private BlockContent _blockContent;
         private List<BlockView> _blockViews = new List<BlockView>();
 
         public void Initialization(BlockContent blockContent)
         {
             _blockContent = blockContent;
+
+            _characterView.OnAnimationComplete += AnimationDone;
         }
 
-        public void BuildLevel(int numberOfLevel)
+        private void AnimationDone()
         {
-            Clear();
-
-            SpawnBlocksOfType(BlockType.Start);
-            StartCoroutine(SpawnOtherBlocks(numberOfLevel));
-        }
-        private void Clear()
-        {
-            foreach (BlockView blockView in _blockViews)
-            {
-                Destroy(blockView);
-            }
-
-            _blockViews.Clear();
+            
         }
 
         private void SpawnBlocksOfType(BlockType blockType)
@@ -65,16 +57,14 @@ namespace VD
 
             while (spawnCount < numberOfLevel && otherBlocks.Count > 0)
             {
-                int randomIndex = Random.Range(0, otherBlocks.Count);
+                int randomIndex = UnityEngine.Random.Range(0, otherBlocks.Count);
                 BlockConfig randomBlock = otherBlocks[randomIndex];
                 SpawnBlock(randomBlock);
                 spawnCount++;
-                //otherBlocks.RemoveAt(randomIndex);
                 yield return new WaitForSeconds(0.5f);
             }
 
             SpawnBlocksOfType(BlockType.Finish);
-
             StartCoroutine(SpawnrBlocks());
         }
 
@@ -87,18 +77,15 @@ namespace VD
         private IEnumerator SpawnrBlocks()
         {
             yield return new WaitForSeconds(0.5f);
-
             InitializationCharacterView();
         }
 
         private void InitializationCharacterView()
         {
             DisableGridLayoutGroup();
-
-            _characterView.gameObject.SetActive(true);
-
             List<Vector3> blockPositions = _blockViews.Select(view => GetChildPositionRelativeToLayoutGroup(view.transform)).ToList();
 
+            _characterView.gameObject.SetActive(true);
             _characterView.Initialization(blockPositions);
             _characterView.StartAnimation();
         }
@@ -114,6 +101,31 @@ namespace VD
             Vector3 anchoredPosition = childRectTransform.anchoredPosition;
             return anchoredPosition;
         }
+        private void AnimationComplete()
+        {
+           OnAnimationComplete();
+        }
+        public void Clear()
+        {
+            foreach (BlockView blockView in _blockViews)
+            {
+                Destroy(blockView);
+            }
 
+            _blockViews.Clear();
+        }
+        public void BuildLevel(int numberOfLevel)
+        {
+            Clear();
+
+            SpawnBlocksOfType(BlockType.Start);
+            StartCoroutine(SpawnOtherBlocks(numberOfLevel));
+            _characterView.OnAnimationComplete += AnimationComplete;
+        }
+        public void MoveCharacterLevel(int currentLevel)
+        {
+            _characterView.MoveToPosition(currentLevel);
+            AnimationComplete();
+        }
     }
 }

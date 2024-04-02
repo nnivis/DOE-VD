@@ -4,10 +4,12 @@ namespace VD
 {
     public class LocationHandler : MonoBehaviour, ILocationProvaider
     {
+        public RollDiceConfig rollDiceConfig => _currentLocation.RollDiceConfig;
+        public EnemyFactory enemyFactory => _currentLocation.EnemyFactory;
+        public DiceFactory diceFactory => _currentLocation.DiceFactory;
         [SerializeField] private LocationContent _locationContent;
         [SerializeField] private LocationPanel _locationPanel;
         [SerializeField] private GameFightHandler _gameFightHandler;
-        [SerializeField] private LevelBuildHandler _levelBuildHandler;
         private MainSceneMode _mainSceneMode;
         private IDataProvider _dataProvider;
         private PassedLevelChecker _passedLevelChecker;
@@ -16,10 +18,6 @@ namespace VD
         private LocationSelector _locationSelector;
         private Location _currentLocation;
         private int _currentLevelIndex;
-
-        public RollDiceConfig rollDiceConfig => _currentLocation.RollDiceConfig;
-        public EnemyFactory enemyFactory => _currentLocation.EnemyFactory;
-        public DiceFactory diceFactory => _currentLocation.DiceFactory;
 
         public void Initialize(IDataProvider dataProvider, PassedLevelChecker passedLevelChecker, LevelPasser levelPasser, SelectedLocationChecker selectedLocationChecker, LocationSelector locationSelector, MainSceneMode mainSceneMode)
         {
@@ -35,7 +33,7 @@ namespace VD
         public void StartWork()
         {
             SetSelectedLocation();
-            _locationPanel.Show(_currentLocation);
+            UpdateLocationView();
         }
 
         public void ActiveLevel(int indexLevel)
@@ -46,6 +44,11 @@ namespace VD
 
         public void PassLevel()
         {
+            _levelPasser.Visit(_currentLocation.LocationType, _currentLevelIndex);
+            _dataProvider.Save();
+
+            _currentLevelIndex++;
+            UpdateLocationView();
 
         }
         private void SetSelectedLocation()
@@ -58,6 +61,11 @@ namespace VD
                     _currentLocation = location;
                 }
             }
+        }
+
+        private void UpdateLocationView()
+        {
+            _locationPanel.Show(_currentLocation);
         }
     }
 }

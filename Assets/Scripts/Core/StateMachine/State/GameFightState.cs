@@ -8,6 +8,7 @@ namespace VD
         [SerializeField] private GameFightHandler _gameFightHandler;
         protected override void OnEnter()
         {
+            Debug.Log("Hello");
             _gameFightHandler.StartFight();
         }
 

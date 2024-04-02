@@ -6,7 +6,7 @@ namespace VD
     public class LocationPanel : MonoBehaviour
     {
         [SerializeField] private Transform _locationParent;
-        [SerializeField] private LocationMediator _locationMediator;
+        [SerializeField] private ProgressGameMediator _progressGameMediator;
         private LocationView _locationView;
         private PassedLevelChecker _passedLevelChecker;
         private ILevelActivator _levelActivator;
@@ -30,7 +30,7 @@ namespace VD
 
         private void ActiveLevel(int levelIndex)
         {
-           _locationMediator.ActiveLevel(levelIndex);
+           _progressGameMediator.ActiveLevel(levelIndex);
         }
 
         private void Clear()
