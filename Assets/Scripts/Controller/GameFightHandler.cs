@@ -7,6 +7,7 @@ namespace VD
 {
     public class GameFightHandler : MonoBehaviour
     {
+        [SerializeField] private MainSceneMode _mainSceneMode;
         [SerializeField] private DiceSpawner _diceSpawner;
         [SerializeField] private CharacterSpawner _characterSpawner;
         [SerializeField] private EnemySpawner _enemySpawner;
@@ -65,6 +66,18 @@ namespace VD
         private void GameFightOver(GameFightEndReason reason)
         {
             Debug.Log(reason);
+
+            switch (reason)
+            {
+                case GameFightEndReason.PlayerDeath:
+                    _mainSceneMode.GotoEndGame();
+                    break;
+                case GameFightEndReason.EnemyDeath:
+                    _mainSceneMode.GotoWinGame();
+                    break;
+                default:
+                    throw new ArgumentException(nameof(reason));
+            }
         }
     }
 }

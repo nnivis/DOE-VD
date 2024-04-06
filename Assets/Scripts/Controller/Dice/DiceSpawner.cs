@@ -32,22 +32,6 @@ namespace VD
         {
             _locationProvaider = locationProvaider;
         }
-
-        public void SpawnDice()
-        {
-            StopWork();
-
-            _diceFactory = _locationProvaider.diceFactory;
-            _spawnedCount = 0;
-            _spawnedDices.Clear();
-            _spawn = StartCoroutine(Spawn());
-        }
-
-        public void StopWork()
-        {
-            if (_spawn != null)
-                StopCoroutine(_spawn);
-        }
         private IEnumerator Spawn()
         {
             while (_spawnedCount < _maxSpawnCount)
@@ -75,7 +59,25 @@ namespace VD
 
             SpawnFinished?.Invoke();
         }
+        public void SpawnDice()
+        {
+            StopWork();
 
+            _diceFactory = _locationProvaider.diceFactory;
+            _spawnedCount = 0;
+            _spawnedDices.Clear();
+            
+            if (gameObject.activeSelf)
+            {
+                _spawn = StartCoroutine(Spawn());
+            }
+        }
+
+        public void StopWork()
+        {
+            if (_spawn != null)
+                StopCoroutine(_spawn);
+        }
 
     }
 }

@@ -7,7 +7,10 @@ namespace VD
 		{
 			ChangeState<StartGameState>();
 		}
-
+		public void GotoSettings()
+		{
+			ChangeState<SettingsState>();
+		}
 		public void GotoLevelBuild()
 		{
 			ChangeState<LevelBuildState>();
@@ -17,7 +20,10 @@ namespace VD
 		{
 			ChangeState<GameFightState>();
 		}
-
+		public void GotoWinGame()
+		{
+			ChangeState<WinGameState>();
+		}
 		public void GotoEndGame()
 		{
 			ChangeState<EndGameState>();

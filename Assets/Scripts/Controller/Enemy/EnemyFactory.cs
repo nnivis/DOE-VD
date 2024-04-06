@@ -13,7 +13,7 @@ namespace VD
         {
             EnemyConfig config = GetConfig();
             Enemy enemy = Instantiate(config.Prefab);
-            // enemy.Initialize(config);
+            enemy.Initialize(config);
             return enemy;
         }
 
