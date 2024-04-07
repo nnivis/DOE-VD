@@ -13,7 +13,7 @@ namespace VD
         private const int _indexDefaultPartLevel = 2;
         private int _currentNumberOfPartLevel;
         private int _numberOfPartLevel;
-        private MainSceneMode _mainSceneMode;
+        private TransitionSceneMediator _transitionSceneMediator;
         private ILocationProvaider _locationProvaider;
         private ILevelProvaider _levelProvaider;
         [Inject]
@@ -22,9 +22,9 @@ namespace VD
             _locationProvaider = locationProvaider;
         }
 
-        public void Initialize(MainSceneMode mainSceneMode)
+        public void Initialize(TransitionSceneMediator transitionSceneMediator)
         {
-            _mainSceneMode = mainSceneMode;
+            _transitionSceneMediator = transitionSceneMediator;
 
             _levelProgressPanel.Initialization(_blockContent);
             _levelProgressPanel.OnLevelBuild += UpdateProgressLevle;
@@ -36,7 +36,7 @@ namespace VD
 
         private void TransitionLevel()
         {
-             _mainSceneMode.GotoMainGameFight();
+             _transitionSceneMediator.ChangeState(SceneType.GameFight);
         }
 
         private void BuildLevel(int numberOfPartLevel)
@@ -63,8 +63,6 @@ namespace VD
 
         public void UpdateProgressLevle()
         {
-            Debug.Log(_numberOfPartLevel);
-            Debug.Log(_currentNumberOfPartLevel);
 
             if (_currentNumberOfPartLevel == _numberOfPartLevel)
             {
@@ -74,11 +72,10 @@ namespace VD
 
                 ClearLevel();
 
-                _mainSceneMode.GotoStartGame();
+                _transitionSceneMediator.ChangeState(SceneType.StartGame);
             }
             else
             {
-                Debug.Log("jjj");
                 _currentNumberOfPartLevel++;
                 _levelProgressPanel.MoveCharacterLevel(_levelProvaider.currentLevelPartIndex);
                 

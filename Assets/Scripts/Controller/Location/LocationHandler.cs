@@ -10,7 +10,7 @@ namespace VD
         [SerializeField] private LocationContent _locationContent;
         [SerializeField] private LocationPanel _locationPanel;
         [SerializeField] private GameFightHandler _gameFightHandler;
-        private MainSceneMode _mainSceneMode;
+       private TransitionSceneMediator _transitionSceneMediator;
         private IDataProvider _dataProvider;
         private PassedLevelChecker _passedLevelChecker;
         private LevelPasser _levelPasser;
@@ -19,14 +19,14 @@ namespace VD
         private Location _currentLocation;
         private int _currentLevelIndex;
 
-        public void Initialize(IDataProvider dataProvider, PassedLevelChecker passedLevelChecker, LevelPasser levelPasser, SelectedLocationChecker selectedLocationChecker, LocationSelector locationSelector, MainSceneMode mainSceneMode)
+        public void Initialize(IDataProvider dataProvider, PassedLevelChecker passedLevelChecker, LevelPasser levelPasser, SelectedLocationChecker selectedLocationChecker, LocationSelector locationSelector, TransitionSceneMediator transitionSceneMediator)
         {
             _dataProvider = dataProvider;
             _passedLevelChecker = passedLevelChecker;
             _levelPasser = levelPasser;
             _selectedLocationChecker = selectedLocationChecker;
             _locationSelector = locationSelector;
-            _mainSceneMode = mainSceneMode;
+            _transitionSceneMediator = transitionSceneMediator;
 
             _locationPanel.Initialize(_passedLevelChecker);
         }
@@ -39,7 +39,7 @@ namespace VD
         public void ActiveLevel(int indexLevel)
         {
             _currentLevelIndex = indexLevel;
-            _mainSceneMode.GotoLevelBuild();
+            _transitionSceneMediator.ChangeState(SceneType.LevelProgress);
         }
 
         public void PassLevel()

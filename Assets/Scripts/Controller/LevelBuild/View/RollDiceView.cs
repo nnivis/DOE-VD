@@ -23,7 +23,7 @@ namespace VD
         public void ActivateRollDiceView()
         {
             gameObject.SetActive(true);
-            StartCoroutine(SpawnIconsOverTime(1));
+            StartCoroutine(SpawnIconsOverTime(12));
         }
 
         private IEnumerator SpawnIconsOverTime(float duration)
@@ -34,7 +34,7 @@ namespace VD
                 int numberOfLevels = UnityEngine.Random.Range(1, _indexOfFaces + 1);
                 SpawnIcon(numberOfLevels);
                 timer++;
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.12f);
             }
 
             GenerateNumberOfLevel();
@@ -48,7 +48,7 @@ namespace VD
         }
         private IEnumerator NumberOfLevels(int numberOfLevels)
         {
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(1.5f);
             OnNumberOfLevels?.Invoke(numberOfLevels);
         }
         private void SpawnIcon(int numberOfLevels)
