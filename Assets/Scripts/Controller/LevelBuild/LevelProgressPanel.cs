@@ -20,15 +20,7 @@ namespace VD
         public void Initialization(BlockContent blockContent)
         {
             _blockContent = blockContent;
-
-            _characterView.OnAnimationComplete += AnimationDone;
         }
-
-        private void AnimationDone()
-        {
-            
-        }
-
         private void SpawnBlocksOfType(BlockType blockType)
         {
             foreach (var block in _blockContent.Blocks)
@@ -103,7 +95,12 @@ namespace VD
         }
         private void AnimationComplete()
         {
-           OnAnimationComplete();
+           StartCoroutine(AnimationCompleteDelay());
+        }
+        private IEnumerator AnimationCompleteDelay()
+        {
+            yield return new WaitForSeconds(0.5f);
+            OnAnimationComplete();
         }
         public void Clear()
         {
@@ -113,6 +110,8 @@ namespace VD
             }
 
             _blockViews.Clear();
+
+            _characterView.OnAnimationComplete -= AnimationComplete;
         }
         public void BuildLevel(int numberOfLevel)
         {
@@ -124,8 +123,8 @@ namespace VD
         }
         public void MoveCharacterLevel(int currentLevel)
         {
+            Debug.Log("Уровень" + currentLevel);
             _characterView.MoveToPosition(currentLevel);
-            AnimationComplete();
         }
     }
 }

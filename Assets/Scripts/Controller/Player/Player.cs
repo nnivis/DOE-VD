@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -19,7 +18,9 @@ namespace VD
 
             _stateMachine = new PlayerStateMachine(transform.GetChild(0).gameObject, transform.GetChild(1).gameObject);
             _moveCursor = new MoveTowardsCursor();
-
+        }
+        private void OnEnable()
+        {
             _inputHandler.ClickLeftDown += OnClickLeftDown;
             _inputHandler.ClickRightDown += OnClickRightDown;
         }
@@ -52,7 +53,6 @@ namespace VD
 
         private void OnClickLeftDown(Vector3 cursorPosition)
         {
-
             _stateMachine.CurrentState.HandleLeftClick();
         }
 

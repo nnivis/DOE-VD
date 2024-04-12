@@ -49,7 +49,7 @@ public class CharacterView : MonoBehaviour
 
             Sequence sequence = DOTween.Sequence();
             sequence.Append(_visualTransform.DOAnchorPos(intermediatePosition, MoveDuration / 2).SetEase(Ease.OutCubic));
-            sequence.Join(_visualTransform.DOAnchorPos(targetPosition, MoveDuration / 2).SetEase(Ease.InCubic));
+            sequence.Join(_visualTransform.DOAnchorPos(targetPosition, MoveDuration ).SetEase(Ease.InCubic));
 
             sequence.OnComplete(() => OnAnimationComplete?.Invoke());
         }

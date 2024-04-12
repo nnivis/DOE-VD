@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -13,9 +12,11 @@ namespace VD
         private const int _indexDefaultPartLevel = 2;
         private int _currentNumberOfPartLevel;
         private int _numberOfPartLevel;
+        private bool _isLevelBuild = false;
         private TransitionSceneMediator _transitionSceneMediator;
         private ILocationProvaider _locationProvaider;
         private ILevelProvaider _levelProvaider;
+
         [Inject]
         private void Construct(ILocationProvaider locationProvaider)
         {
@@ -36,11 +37,13 @@ namespace VD
 
         private void TransitionLevel()
         {
-             _transitionSceneMediator.ChangeState(SceneType.GameFight);
+            _transitionSceneMediator.ChangeState(SceneType.GameFight);
         }
 
         private void BuildLevel(int numberOfPartLevel)
         {
+            _isLevelBuild = true;
+
             _numberOfPartLevel = numberOfPartLevel + _indexDefaultPartLevel;
 
             ResetCurrentLevel();
@@ -63,9 +66,9 @@ namespace VD
 
         public void UpdateProgressLevle()
         {
-
             if (_currentNumberOfPartLevel == _numberOfPartLevel)
             {
+              
                 _progressGameMediator.LevelComplete();
                 _rollDicePanel.gameObject.SetActive(true);
                 _levelProgressPanel.gameObject.SetActive(false);
@@ -77,16 +80,17 @@ namespace VD
             else
             {
                 _currentNumberOfPartLevel++;
-                _levelProgressPanel.MoveCharacterLevel(_levelProvaider.currentLevelPartIndex);
-                
-               
+                _levelProgressPanel.MoveCharacterLevel(_currentNumberOfPartLevel);
             }
         }
+        public void DestroyLevel()
+        {
 
-
-
+        }
         public void StartWork()
         {
+            if (_isLevelBuild)
+                UpdateProgressLevle();
         }
 
     }

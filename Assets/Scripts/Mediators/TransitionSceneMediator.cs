@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 namespace VD
 {
     public class TransitionSceneMediator : MonoBehaviour
     {
+        public Action OnTransitionOutComplete;
         [SerializeField] MainSceneMode _mainSceneMode;
         [SerializeField] WipeController _wipeController;
 
@@ -45,8 +47,8 @@ namespace VD
                     Debug.LogWarning("Unknown scene type.");
                     break;
             }
-            _wipeController.AnimateIn();
 
+            _wipeController.AnimateIn();
         }
 
         public void ChangeState(SceneType sceneType)
@@ -62,6 +64,11 @@ namespace VD
         public void ChangeStateSettings()
         {
             _currentSceneType = SceneType.Settings;
+            _wipeController.AnimateOut();
+        }
+        public void ChangeStateLevelProgress()
+        {
+            _currentSceneType = SceneType.LevelProgress;
             _wipeController.AnimateOut();
         }
     }

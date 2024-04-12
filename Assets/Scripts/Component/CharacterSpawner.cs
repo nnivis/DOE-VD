@@ -4,7 +4,6 @@ namespace VD
 {
     public class CharacterSpawner : MonoBehaviour
     {
-
         [SerializeField] private CharacterConfig _config;
         [SerializeField] private Character _prefab;
         [SerializeField] private Transform _spawnPoint;

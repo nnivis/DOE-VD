@@ -59,6 +59,16 @@ namespace VD
 
             SpawnFinished?.Invoke();
         }
+        private void RemoveChildren()
+        {
+            foreach (Transform spawnPoint in _spawnPoints)
+            {
+                foreach (Transform child in spawnPoint)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+        }
         public void SpawnDice()
         {
             StopWork();
@@ -66,7 +76,7 @@ namespace VD
             _diceFactory = _locationProvaider.diceFactory;
             _spawnedCount = 0;
             _spawnedDices.Clear();
-            
+
             if (gameObject.activeSelf)
             {
                 _spawn = StartCoroutine(Spawn());
@@ -78,6 +88,9 @@ namespace VD
             if (_spawn != null)
                 StopCoroutine(_spawn);
         }
-
+        public void RemoveAllChildren()
+        {
+            RemoveChildren();
+        }
     }
 }

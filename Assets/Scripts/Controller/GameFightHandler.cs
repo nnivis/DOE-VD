@@ -14,8 +14,6 @@ namespace VD
         [SerializeField] private Timer _timer;
         private AbilityMediator _abilityMediator;
         private GamePlayMediator _gamePlayMediator;
-        private ILocationProvaider _locationProvaider;
-        private GameFightEnder _gameFightEnder;
         private Character _character;
         private Enemy _enemy;
         private List<Dice> _activeDice = new List<Dice>();
@@ -25,16 +23,9 @@ namespace VD
         {
             _abilityMediator = abilityMediator;
             _gamePlayMediator = gamePlayMediator;
-            _locationProvaider = locationProvaider;
 
             _gamePlayMediator.OnGameOver += GameFightOver;
             _diceSpawner.Initialize(_abilityMediator);
-        }
-        public void StartFight()
-        {
-            SpawnComponents();
-            _abilityMediator.SetComponent(_character, _enemy);
-            _timer.StartTimer();
         }
         private void OnDisable()
         {
@@ -65,8 +56,6 @@ namespace VD
         }
         private void GameFightOver(GameFightEndReason reason)
         {
-            Debug.Log(reason);
-
             switch (reason)
             {
                 case GameFightEndReason.PlayerDeath:
@@ -75,9 +64,29 @@ namespace VD
                 case GameFightEndReason.EnemyDeath:
                     _mainSceneMode.GotoWinGame();
                     break;
+                case GameFightEndReason.TimeUp:
+                    _mainSceneMode.GotoEndGame();
+                    break;
                 default:
                     throw new ArgumentException(nameof(reason));
             }
+
+        }
+
+        private void ClearLevel()
+        {
+            Destroy(_character);
+            Destroy(_enemy);
+            _activeDice.Clear();
+            _diceSpawner.RemoveAllChildren();
+        }
+        public void StartFight()
+        {
+            ClearLevel();
+
+            SpawnComponents();
+            _abilityMediator.SetComponent(_character, _enemy);
+            _timer.StartTimer();
         }
     }
 }
