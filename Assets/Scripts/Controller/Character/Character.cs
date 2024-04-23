@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Zenject;
 
 namespace VD
 {
@@ -9,14 +8,13 @@ namespace VD
         public Action<GameFightEndReason> onDead;
         public GameFightEndReason GameOverType => _gameOverType;
         public Action onDamage;
+        [SerializeField] private ViewHealthComponent _viewComponent;
         private HealthComponent _healthComponent;
-        private GameFightEndReason _gameOverType;
-        [SerializeField] private ViewComponent _viewComponent;
+        private const GameFightEndReason _gameOverType = GameFightEndReason.PlayerDeath;
 
         public void Initialization(CharacterConfig config)
         {
             _healthComponent = new HealthComponent(config.MaxHealth);
-            _gameOverType = GameFightEndReason.PlayerDeath;
         }
         public int CurrentHealth => _healthComponent.currentHealth;
         public int MaxHealth => _healthComponent.maxHealth;
@@ -28,16 +26,14 @@ namespace VD
 
             if (_healthComponent.isDead) Death();
         }
+        public void ApplyHealing(int amount)
+        {
 
+        }
         private void Death()
         {
             onDead?.Invoke(_gameOverType);
             Destroy(gameObject);
-        }
-
-        public void ApplyHealing(int amount)
-        {
-
         }
     }
 }

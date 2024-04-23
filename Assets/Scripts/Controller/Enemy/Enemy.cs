@@ -10,7 +10,7 @@ namespace VD
         public Action onDamage;
         private HealthComponent _healthComponent;
         private GameFightEndReason _gameOverType;
-        [SerializeField] private ViewComponent _viewComponent;
+        [SerializeField] private ViewHealthComponent _viewComponent;
         public virtual void Initialize(EnemyConfig config)
         {
             _healthComponent = new HealthComponent(config.MaxHealth);

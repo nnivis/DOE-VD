@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -19,23 +20,28 @@ namespace VD
         private List<Dice> _activeDice = new List<Dice>();
 
         [Inject]
-        private void Construct(AbilityMediator abilityMediator, GamePlayMediator gamePlayMediator, ILocationProvaider locationProvaider)
+        private void Construct(AbilityMediator abilityMediator, GamePlayMediator gamePlayMediator)
         {
             _abilityMediator = abilityMediator;
             _gamePlayMediator = gamePlayMediator;
 
-            _gamePlayMediator.OnGameOver += GameFightOver;
             _diceSpawner.Initialize(_abilityMediator);
+        }
+
+        private void OnEnable()
+        {
+            _gamePlayMediator.OnGameOver += GameFightOver;
         }
         private void OnDisable()
         {
             _activeDice.ForEach(dice => dice.OnDestroyed -= DiceDestroyed);
+            _gamePlayMediator.OnGameOver -= GameFightOver;
         }
         private void SpawnComponents()
         {
-            _diceSpawner.SpawnDice();
             _character = _characterSpawner.SpawnCharacter();
             _enemy = _enemySpawner.SpawnEnemy();
+            _diceSpawner.SpawnDice();
             _diceSpawner.SpawnFinished += AddSpawnedDiceToActiveDice;
         }
         private void DiceDestroyed()

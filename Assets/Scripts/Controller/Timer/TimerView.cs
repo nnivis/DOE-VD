@@ -1,21 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 namespace VD
 {
     public class TimerView : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
+        [SerializeField] private Image _timerImage;
+        private float _defaultTimer;
+        private float _currentTimer;
 
-        // Update is called once per frame
-        void Update()
+        public void UpdateTimerInfo(float defaultTimer, float currentTimer)
         {
-        
+            _defaultTimer = defaultTimer;
+            _currentTimer = currentTimer;
+        }
+        private void UpdateTimerView()
+        {
+            float timerPercentage = _currentTimer / _defaultTimer * 100f;
+            _timerImage.fillAmount = timerPercentage / 100f;
+        }
+        private void Update()
+        {
+            UpdateTimerView();
         }
     }
 }

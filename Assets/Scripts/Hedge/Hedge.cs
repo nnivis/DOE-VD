@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VD
 {
-    public class Map : MonoBehaviour
+    public class Hedge : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()

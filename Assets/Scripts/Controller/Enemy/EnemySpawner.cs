@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using UnityEngine;
 using Zenject;
 
@@ -6,7 +5,6 @@ namespace VD
 {
     public class EnemySpawner : MonoBehaviour
     {
-
         [SerializeField] private Transform _spawnPoint;
         private const float BaseScale = 3.0f;
         private GamePlayMediator _gamePlayMediator;
@@ -22,7 +20,6 @@ namespace VD
         public Enemy SpawnEnemy()
         {
             _enemyFactory = _locationProvaider.enemyFactory;
-
             Enemy enemy = _enemyFactory.Get();
             enemy.onDead += (GameOverType) => _gamePlayMediator.NotifyGameOver(enemy.GameOverType);
             enemy.transform.SetParent(_spawnPoint);

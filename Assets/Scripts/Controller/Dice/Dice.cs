@@ -43,7 +43,6 @@ namespace VD
 
         public void OnMassegeDiceLeftClick()
         {
-            Debug.Log("Dice Left");
             _abilityMediator.HandleDiceAbility(_currentType, _valueAbility);
             OnDestroyed?.Invoke();
             Destroy(gameObject);
@@ -51,7 +50,6 @@ namespace VD
 
         public void OnMassegeDiceRightClick()
         {
-              Debug.Log("Dice Right");
             ChangeType();
         }
 

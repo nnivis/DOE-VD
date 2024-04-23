@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace VD
 {
-    public class ViewComponent : MonoBehaviour
+    public class ViewHealthComponent : MonoBehaviour
     {
         [SerializeField] Image _healthImage;
         public void UpdateHealth(int currentHealth, int maxHealth)

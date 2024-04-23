@@ -1,6 +1,6 @@
 namespace VD
 {
-    public class AbilityMediator 
+    public class AbilityMediator
     {
         private IDamageable _character;
         private IDamageable _enemy;
@@ -12,12 +12,12 @@ namespace VD
         }
         public void ApplyDamageToPlayer(int damage)
         {
-           _character.ApplyDamage(damage);
+            _enemy.ApplyDamage(damage);
         }
 
         public void ApplyDamageToEnemy(int damage)
         {
-           _enemy.ApplyDamage(damage);
+            _character.ApplyDamage(damage);
         }
 
         public void ApplyHealingToPlayer(int amount)

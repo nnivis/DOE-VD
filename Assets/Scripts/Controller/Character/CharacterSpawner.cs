@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 namespace VD
 {
@@ -10,6 +11,7 @@ namespace VD
         private GamePlayMediator _gamePlayMediator;
         private const float BaseScale = 3.0f;
 
+        [Inject]
         private void Construct(GamePlayMediator gamePlayMediator)
         {
             _gamePlayMediator = gamePlayMediator;
@@ -24,7 +26,5 @@ namespace VD
 
             return character;
         }
-
-
     }
 }

@@ -4,10 +4,10 @@ namespace VD
 {
     public class GameFightViewMediator : MonoBehaviour
     {
-        [SerializeField] private GameFightView _gameFightView;
+        [SerializeField] GameFightPanel _gameFightPanel;
         public void UpdateTimerInfo(float defaultTimer, float currentTimer)
         {
-            _gameFightView.UpdateTimerInfo(defaultTimer, currentTimer);
+            _gameFightPanel.UpdateTimerView(defaultTimer, currentTimer);
         }
     }
 }
