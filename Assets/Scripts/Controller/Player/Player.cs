@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Zenject;
 
@@ -6,16 +7,18 @@ namespace VD
     public class Player : MonoBehaviour
     {
         [SerializeField] private Camera _mainCamera;
+        private const float _delayBlock = 4.0f;
         private InputHandler _inputHandler;
         private PlayerStateMachine _stateMachine;
         private MoveTowardsCursor _moveCursor;
+        private bool _isBlock;
 
         [Inject]
         private void Construct(InputHandler inputHandler)
         {
-            _inputHandler = inputHandler;
             Cursor.lockState = CursorLockMode.None;
 
+            _inputHandler = inputHandler;
             _stateMachine = new PlayerStateMachine(transform.GetChild(0).gameObject, transform.GetChild(1).gameObject);
             _moveCursor = new MoveTowardsCursor();
         }
@@ -53,14 +56,25 @@ namespace VD
 
         private void OnClickLeftDown(Vector3 cursorPosition)
         {
-            _stateMachine.CurrentState.HandleLeftClick();
+            if (_stateMachine.CurrentState.isDice() && !_isBlock)
+                _stateMachine.CurrentState.HandleLeftClick();
+            else StartCoroutine(BlockPlayer());
         }
 
         private void OnClickRightDown(Vector3 cursorPosition)
         {
-            _stateMachine.CurrentState.HandleRightClick();
+            if (_stateMachine.CurrentState.isDice() && !_isBlock)
+                _stateMachine.CurrentState.HandleRightClick();
+            else StartCoroutine(BlockPlayer());
         }
-
+        private IEnumerator BlockPlayer()
+        {
+            Debug.Log("Block");
+            _isBlock = true;
+            yield return new WaitForSeconds(_delayBlock);
+               Debug.Log("NOT Block");
+            _isBlock = false;
+        }
         private void OnTriggerEnter2D(Collider2D other)
         {
             _stateMachine.CurrentState.HandleTriggerEnter2D(other);

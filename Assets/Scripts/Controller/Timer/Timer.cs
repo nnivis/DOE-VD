@@ -6,7 +6,7 @@ namespace VD
     public class Timer : MonoBehaviour
     {
         [SerializeField] private GameFightViewMediator _gameFightViewMediator;
-        private const float _defaultTimer = 25f;
+        private const float _defaultTimer = 15f;
         private GamePlayMediator _gamePlayMediator;
         private GameFightEndReason _gameFightEndReason;
         private float _currentTimer;

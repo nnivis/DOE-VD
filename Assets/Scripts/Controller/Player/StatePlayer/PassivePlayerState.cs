@@ -39,5 +39,9 @@ namespace VD
 
         }
 
+        public bool isDice()
+        {
+          return true;
+        }
     }
 }

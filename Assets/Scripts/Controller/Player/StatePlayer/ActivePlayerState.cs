@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace VD
@@ -6,6 +7,7 @@ namespace VD
     {
         private readonly GameObject _activePrefab;
         private Dice _dice;
+        private bool _isDice;
 
         public ActivePlayerState(PlayerStateMachine playerStateMachine, GameObject activePrefab)
         {
@@ -37,10 +39,25 @@ namespace VD
         public void HandleTriggerEnter2D(Collider2D collider)
         {
             GameObject colliderObject = collider.gameObject;
-            Dice diceComponent = colliderObject.GetComponent<Dice>();
 
-            if (diceComponent != null)
+            Dice diceComponent = colliderObject.GetComponent<Dice>();
+            Hedge hedgeComponent = colliderObject.GetComponent<Hedge>();
+
+            if (hedgeComponent != null)
+            {
+                _isDice = false;
+                return;
+            }
+            else if (diceComponent != null)
+            {
                 _dice = diceComponent;
+            }
+            _isDice = true;
+        }
+
+        public bool isDice()
+        {
+            return _isDice;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace VD
         void HandleLeftClick();
         void HandleRightClick();
         void HandleTriggerEnter2D(Collider2D collider);
+        bool isDice();
 
     }
 }

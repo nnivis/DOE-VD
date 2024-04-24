@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -62,6 +61,12 @@ namespace VD
         }
         private void GameFightOver(GameFightEndReason reason)
         {
+
+
+        }
+
+        private void ChangeScene(GameFightEndReason reason)
+        {
             switch (reason)
             {
                 case GameFightEndReason.PlayerDeath:
@@ -76,7 +81,6 @@ namespace VD
                 default:
                     throw new ArgumentException(nameof(reason));
             }
-
         }
 
         private void ClearLevel()
