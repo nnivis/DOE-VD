@@ -7,7 +7,6 @@ namespace VD
         [SerializeField] FileDeletionExample _fileDeletionExample;
         [SerializeField] LocationHandler _locationHandler;
         [SerializeField] LevelProgressHandler _levelProgressHandler;
-        [SerializeField] TransitionSceneMediator _transitionSceneMediator;
         private IDataProvider _dataProvider;
         private IPersistentData _persistentPlayertData;
 
@@ -36,13 +35,13 @@ namespace VD
             SelectedLocationChecker selectedLocationChecker = new SelectedLocationChecker(_persistentPlayertData);
             LocationSelector locationSelector = new LocationSelector(_persistentPlayertData);
 
-            _locationHandler.Initialize(_dataProvider, passedLevelChecker, levelPasser, selectedLocationChecker, locationSelector, _transitionSceneMediator);
+            _locationHandler.Initialize(_dataProvider, passedLevelChecker, levelPasser, selectedLocationChecker, locationSelector);
 
         }
 
         private void InitializeLevel()
         {
-            _levelProgressHandler.Initialize(_transitionSceneMediator);
+            _levelProgressHandler.Initialize();
         }
 
         private void LoadDataOrInit()

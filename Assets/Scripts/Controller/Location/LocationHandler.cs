@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 namespace VD
 {
@@ -10,23 +11,27 @@ namespace VD
         [SerializeField] private LocationContent _locationContent;
         [SerializeField] private LocationPanel _locationPanel;
         [SerializeField] private GameFightHandler _gameFightHandler;
-       private TransitionSceneMediator _transitionSceneMediator;
+        private int _currentLevelIndex;
         private IDataProvider _dataProvider;
         private PassedLevelChecker _passedLevelChecker;
         private LevelPasser _levelPasser;
         private SelectedLocationChecker _selectedLocationChecker;
-        private LocationSelector _locationSelector;
+        //private LocationSelector _locationSelector;
         private Location _currentLocation;
-        private int _currentLevelIndex;
+        private TransitionSceneMediator _transitionSceneMediator;
 
-        public void Initialize(IDataProvider dataProvider, PassedLevelChecker passedLevelChecker, LevelPasser levelPasser, SelectedLocationChecker selectedLocationChecker, LocationSelector locationSelector, TransitionSceneMediator transitionSceneMediator)
+        [Inject]
+        private void Construct(TransitionSceneMediator transitionSceneMediator)
+        {
+            _transitionSceneMediator = transitionSceneMediator;
+        }
+        public void Initialize(IDataProvider dataProvider, PassedLevelChecker passedLevelChecker, LevelPasser levelPasser, SelectedLocationChecker selectedLocationChecker, LocationSelector locationSelector)
         {
             _dataProvider = dataProvider;
             _passedLevelChecker = passedLevelChecker;
             _levelPasser = levelPasser;
             _selectedLocationChecker = selectedLocationChecker;
-            _locationSelector = locationSelector;
-            _transitionSceneMediator = transitionSceneMediator;
+            //_locationSelector = locationSelector;
 
             _locationPanel.Initialize(_passedLevelChecker);
         }
@@ -39,7 +44,7 @@ namespace VD
         public void ActiveLevel(int indexLevel)
         {
             _currentLevelIndex = indexLevel;
-            _transitionSceneMediator.ChangeState(SceneType.LevelProgress);
+            _transitionSceneMediator.NotifyTransition(SceneType.LevelProgress);
         }
 
         public void PassLevel()

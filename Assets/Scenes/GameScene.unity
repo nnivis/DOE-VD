@@ -2199,7 +2199,6 @@ MonoBehaviour:
   _fileDeletionExample: {fileID: 500550906}
   _locationHandler: {fileID: 1485377350}
   _levelProgressHandler: {fileID: 1992652292}
-  _transitionSceneMediator: {fileID: 439036378}
 --- !u!114 &500550906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4528,7 +4527,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c70b67760834b4681d59cf540cd4e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainSceneMode: {fileID: 334151349}
   _diceSpawner: {fileID: 955828736}
   _characterSpawner: {fileID: 955828738}
   _enemySpawner: {fileID: 955828737}

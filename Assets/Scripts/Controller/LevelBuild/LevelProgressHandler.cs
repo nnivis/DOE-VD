@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -10,23 +11,21 @@ namespace VD
         [SerializeField] private BlockContent _blockContent;
         [SerializeField] private ProgressGameMediator _progressGameMediator;
         private const int _indexDefaultPartLevel = 2;
+        private const int _defaultNumberOfPartLevel = 1;
         private int _currentNumberOfPartLevel;
         private int _numberOfPartLevel;
         private bool _isLevelBuild = false;
-        private TransitionSceneMediator _transitionSceneMediator;
         private ILocationProvaider _locationProvaider;
-        private ILevelProvaider _levelProvaider;
+        private TransitionSceneMediator _transitionSceneMediator;
 
         [Inject]
-        private void Construct(ILocationProvaider locationProvaider)
-        {
-            _locationProvaider = locationProvaider;
-        }
-
-        public void Initialize(TransitionSceneMediator transitionSceneMediator)
+        private void Construct(ILocationProvaider locationProvaider, TransitionSceneMediator transitionSceneMediator)
         {
             _transitionSceneMediator = transitionSceneMediator;
-
+            _locationProvaider = locationProvaider;
+        }
+        public void Initialize()
+        {
             _levelProgressPanel.Initialization(_blockContent);
             _levelProgressPanel.OnLevelBuild += UpdateProgressLevle;
             _levelProgressPanel.OnAnimationComplete += TransitionLevel;
@@ -37,7 +36,7 @@ namespace VD
 
         private void TransitionLevel()
         {
-            _transitionSceneMediator.ChangeState(SceneType.GameFight);
+            _transitionSceneMediator.NotifyTransition(SceneType.GameFight);
         }
 
         private void BuildLevel(int numberOfPartLevel)
@@ -54,38 +53,34 @@ namespace VD
         }
         private void ResetCurrentLevel()
         {
-            _currentNumberOfPartLevel = 1;
+            _currentNumberOfPartLevel = _defaultNumberOfPartLevel;
         }
-
-        public void ClearLevel()
+        private void ClearLevel()
         {
             ResetCurrentLevel();
             _levelProgressPanel.Clear();
             _rollDicePanel.Clear();
+        }
+        private void DestroyLevel()
+        {
+            _progressGameMediator.LevelComplete();
+            _rollDicePanel.gameObject.SetActive(true);
+            _levelProgressPanel.gameObject.SetActive(false);
+            ClearLevel();
         }
 
         public void UpdateProgressLevle()
         {
             if (_currentNumberOfPartLevel == _numberOfPartLevel)
             {
-              
-                _progressGameMediator.LevelComplete();
-                _rollDicePanel.gameObject.SetActive(true);
-                _levelProgressPanel.gameObject.SetActive(false);
-
-                ClearLevel();
-
-                _transitionSceneMediator.ChangeState(SceneType.StartGame);
+                DestroyLevel();
+                _transitionSceneMediator.NotifyTransition(SceneType.StartGame);
             }
             else
             {
                 _currentNumberOfPartLevel++;
                 _levelProgressPanel.MoveCharacterLevel(_currentNumberOfPartLevel);
             }
-        }
-        public void DestroyLevel()
-        {
-
         }
         public void StartWork()
         {
