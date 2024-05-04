@@ -4,7 +4,6 @@ namespace VD
 {
     public class BootstrapGame : MonoBehaviour
     {
-
         [SerializeField] FileDeletionExample _fileDeletionExample;
         [SerializeField] LocationHandler _locationHandler;
         [SerializeField] LevelProgressHandler _levelProgressHandler;
